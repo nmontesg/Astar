@@ -27,6 +27,13 @@ typedef struct {
     Queue whq;                  // which 
 } AStarStatus;
 
+/*** structure to represent a node in the OPEN list ***/
+typedef struct open_node {
+    double f;
+    unsigned long index;
+    struct open_node* next;
+} open_node;
+
 /*** Standard function to exit with error ***/
 void ExitError(const char *miss, int errcode) {
     fprintf (stderr, "\nERROR: %s.\nStopping...\n\n", miss); exit(errcode);
@@ -134,24 +141,4 @@ double haversine (node u, node v) {
     double c = 2 * atan2(sqrt(a), sqrt(1-a));
     double d = R * c;
     return d;
-}
-
-
-void AStar (node* nodes, unsigned long source, unsigned long dest, unsigned long nnodes) {
-    
-    AStarStatus* progress;
-    if ((progress = (AStarStatus*) malloc(nnodes*sizeof(AStarStatus))) == NULL)
-        ExitError("when allocating memory for the progress vector", 13);
-
-    unsigned long i;
-    for (i=0; i < nnodes; i++) (progress+i)->whq = 0;                               // all nodes start neither in OPEN nor CLOSED list
-    
-    unsigned long source_index = binary_search(nodes, source, 0, nnodes);           // find source in nodes vector
-    unsigned long dest_index = binary_search(nodes, dest, 0, nnodes);               // find destination in nodes vector
-    (progress + source_index)->whq = 1;                                             // put source in OPEN list
-    (progress + source_index)->g = 0;
-    (progress + source_index)->h = haversine( *(nodes+source_index), *(nodes+dest_index) );
-    
-    
-    free(progress);
 }

@@ -1,4 +1,5 @@
 #include "Astar_header.h"
+#include "Astar_func.h"
 
 int main (int argc, char *argv[]) {
     
