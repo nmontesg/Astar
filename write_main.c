@@ -1,4 +1,4 @@
-#include "write_header.h"
+#include "Astar_header.h"
 
 int main (int argc, char *argv[]) {
     
@@ -92,18 +92,11 @@ int main (int argc, char *argv[]) {
     }
     
     fclose(fin);            // close .bin file
-    
-    int j;
-    for (i=500; i<1000; i++) {
-        printf("%lu  %lu  %s  %f  %f  %d --> ", i, (nodes+i)->id, (nodes+i)->name, (nodes+i)->lat, (nodes+i)->lon, (nodes+i)->nsucc);
-        for (j=0; j<(nodes+i)->nsucc; j++) printf("%lu  ", ((nodes+i)->successors)[j]);
-        printf("\n");
-    }
                
 /*** Free all allocated memory ***/
-    /*for (i = 0; i < nnodes; i++) { free((nodes+i)->name); free((nodes+i)->successors); }
+    for (i = 0; i < nnodes; i++) { free((nodes+i)->name); free((nodes+i)->successors); }
     free(nodes);
-    free(nsuccdim);*/
+    free(nsuccdim);
     
     return 0;
 }
