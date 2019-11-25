@@ -39,10 +39,10 @@ int main (int argc, char *argv[]) {
         if (*(line_buf) == 'r') break;                        // exit loop when we get to relations                       
     }
     
-// Allocate memory for the successors of every node. Use calloc() because it initializes the allocated memory to 0. This fact will be exploited when processing the edges.
+// Allocate memory for the successors of every node.
     for (i = 0; i < nnodes; i++) {
         (nodes+i)->nsucc = nsuccdim[i];
-        if(((nodes+i)->successors = (unsigned long*) calloc(nsuccdim[i], sizeof(unsigned long))) == NULL) ExitError("when allocating memory for the nodes successors", 5);
+        if(((nodes+i)->successors = (unsigned long*) malloc(nsuccdim[i]*sizeof(unsigned long))) == NULL) ExitError("when allocating memory for the nodes successors", 5);
     }
     
 // Allocate memory for successors index counter. Use calloc() to initialize all counters to 0.
@@ -64,26 +64,63 @@ int main (int argc, char *argv[]) {
     fclose(fmap);           // close .csv file
     
     /*debugging*/
-    int j, k;
-    unsigned long aux;
-    for (i = 0; i < 2000; i++) {
-        for (j = 0; j < (nodes+i)->nsucc; j++) {
-            aux = ((nodes+i)->successors)[j];
-             for (k = j+1; k < (nodes+i)->nsucc; k++) {
-                 if ((aux == ((nodes+i)->successors)[k]) && (j != k)) {
-                     printf("node %lu has repeated successors: %lu and %lu, in positions %d and %d\n", i, aux, ((nodes+i)->successors)[k], j, k);
-                 }
-             }
-        }
-    }
-    
-    for (i = 0; i < 2000; i++) {
+    /*int j, k;
+    for (i = 1610; i < 1619; i++) {
         printf("node %lu; nsucc %d -> ", i, (nodes+i)->nsucc);
         for (j = 0; j < (nodes+i)->nsucc; j++) {
             printf("%lu  ", ((nodes+i)->successors)[j]);
         }
         printf("\n");
     }
+    
+    unsigned short cor_nsucc;                                                           // correct number of successors
+    unsigned long* cor_successors = NULL;                                               // auxiliary vector to store correct (distinct) successors
+    if((cor_successors = (unsigned long*) malloc(sizeof(unsigned long))) == NULL) ExitError("when allocating initial memory for the auxiliary nodes successors", 5);
+    unsigned short counter;                                                             // counter to keep track of position in cor_successors
+    for (i = 1610; i < 1619; i++) {
+    // loop to count how many different successors a node has
+        cor_nsucc = (nodes+i)->nsucc;                                                   // initially, number of successors is okay
+        for (j = 0; j < (nodes+i)->nsucc; j++) {                                        // loop over all successors
+            for (k = 0; k < j; k++) {                                                   // loop over all previous successors
+                if ( ((nodes+i)->successors)[j] == ((nodes+i)->successors)[k] ){        // we found a duplicate
+                    cor_nsucc -= 1;                                                     // number of successors minus one
+                    break;                                                              // move on to next successor
+                }
+            }
+        }
+        printf("node %lu has %d different successors\n", i, cor_nsucc);/*debugging*/
+        
+        /*if (cor_nsucc == (nodes+i)->nsucc) continue;                                    // node doesn't have duplicate successors: go to next node
+        
+    // node has duplicates: make auxiliary vector with correct size to store different successors
+        if((cor_successors = (unsigned long*) realloc(cor_successors, cor_nsucc*sizeof(unsigned long))) == NULL) ExitError("when allocating memory for the auxiliary nodes successors", 5);
+        counter = 0;                                                                    // at the beginig of correct successors vector
+        for (j = 0; j < (nodes+i)->nsucc; j++) {                                        // loop over all (repeated) successors
+            for (k = 0; k < j; k++) {                                                   // loop over all previous successors
+                if ( ((nodes+i)->successors)[j] == ((nodes+i)->successors)[k] ) break;  // found a duplicate: go to next successor
+            }
+            *(cor_successors+counter) = ((nodes+i)->successors)[j];                     // did not find a duplicate: write successor in auxiliary vector
+            counter += 1;                                                               // increase counter for auxiliary vector
+        }
+    // rewrite nsucc and successors for node with duplicates
+        //free( (nodes+i)->successors );                                                  // delete previous successors vector with duplicates
+        (nodes+i)->nsucc = cor_nsucc;                                                   // new correct number of successors
+        // allocate memory of correct size for new successor vector
+        if(((nodes+i)->successors = (unsigned long*) realloc((nodes+i)->successors, cor_nsucc*sizeof(unsigned long))) == NULL)
+            ExitError("when allocating memory for the nodes successors", 5);
+        for (j = 0; j < (nodes+i)->nsucc; j++) { ((nodes+i)->successors)[j] = *(cor_successors+j); } // copy correct auxiliary vector into new successors vector      
+        //free(cor_successors);
+    }
+    
+    for (i = 1610; i < 1619; i++) {
+        printf("node %lu; nsucc %d -> ", i, (nodes+i)->nsucc);
+        for (j = 0; j < (nodes+i)->nsucc; j++) {
+            printf("%lu  ", ((nodes+i)->successors)[j]);
+        }
+        printf("\n");
+    }
+    
+    
 
 /*** WRITE BINARY FILE ***/
     FILE *fin;
