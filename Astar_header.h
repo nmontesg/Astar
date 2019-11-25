@@ -29,6 +29,7 @@ typedef struct {
 
 /*** structure to represent a node in the OPEN list ***/
 typedef struct open_node {
+    double f;
     unsigned long index;
     struct open_node* next;
 } open_node;
@@ -58,6 +59,8 @@ void process_node(node* nodes, char* line, unsigned long i) {
 
 /*** binary_search() returns the position of node with id in vector nodes. Boundary indices are specified, typically low = 0 and high = nnodes. If node with id is not in the nodes vector, function returns -1. ***/
 signed long binary_search(node* nodes, unsigned long id, unsigned long low, unsigned long high) {
+    if ( (nodes + low)->id == id ) return (signed long)low;
+    if ( (nodes + high)->id == id ) return (signed long)high;
     signed long index = (high + low)/2;
     unsigned long guess = (nodes + index)->id;
     while ( (high-low) > 1 ) {
@@ -89,8 +92,8 @@ void update_nsuccs(unsigned short* nsuccdim, char* line, node* nodes, unsigned l
     while ((node_m = strsep(&line, "|")) != NULL) {  // read current field
         id_n = strtoul(node_n, &ptr, 10);
         id_m = strtoul(node_m, &ptr, 10);
-        n = binary_search(nodes, id_n, 0, nnodes);
-        m = binary_search(nodes, id_m, 0, nnodes);
+        n = binary_search(nodes, id_n, 0, nnodes-1);
+        m = binary_search(nodes, id_m, 0, nnodes-1);
         node_n = node_m;                             // advance to next pair of consecutive nodes
         if ( (n == -1) || (m == -1) ) continue;      // if any of the nodes is not in nodes vector -> skip
         else if (oneway == true) nsuccdim[n] += 1;
@@ -118,8 +121,8 @@ void update_successors(char* line, node* nodes, unsigned long nnodes, unsigned s
     while ((node_m = strsep(&line, "|")) != NULL) {  // read another node
         id_n = strtoul(node_n, &ptr, 10);
         id_m = strtoul(node_m, &ptr, 10);
-        n = binary_search(nodes, id_n, 0, nnodes);
-        m = binary_search(nodes, id_m, 0, nnodes);
+        n = binary_search(nodes, id_n, 0, nnodes-1);
+        m = binary_search(nodes, id_m, 0, nnodes-1);
         node_n = node_m;                              // first node is now second node to read next pair 
         if ( (n == -1) || (m == -1) ) continue;       // if any of the nodes is not in nodes vector -> skip
         free_n = counters[n];                         // find free spot for successor of node_n
@@ -145,5 +148,38 @@ double haversine (node u, node v) {
 /* using theorem 11 in page 84, and assuming we are using a MONOTONE heuristic function, we can only consider cases where a successor node is inserted in the middle of the OPEN or at the end */
 void insert_to_OPEN (unsigned long index, AStarStatus* progress, open_node* OPEN) {
     (progress + index)->whq = 1;
-    
+    open_node* TEMP = OPEN;                                                                 // copy of the OPEN list
+    open_node* new_node = NULL;                                                             // new node in the OPEN list
+    if ((new_node = (open_node*) malloc(sizeof(open_node))) == NULL) ExitError("when allocating memory for a new node in the OPEN list", 13);
+    new_node->index = index;                                                                // index of new_node
+    new_node->f = (progress + index)->g + (progress + index)->h;                            // f function of new node
+    new_node->next = NULL;                                                                  // for the moment new node is not allocated in the OPEN list
+    while ( (TEMP->next != NULL) && ((TEMP->next)->f < new_node->f ) ) TEMP = TEMP->next;   // find position in OPEN (TEMP) list to insert new_node
+    if (TEMP->next == NULL) TEMP->next = new_node;                                          // if new_node has to be allocated at the end of OPEN
+    else if ((TEMP->next)->f >= new_node->f) {                                              // if new_node has to be allocated in the middle of OPEN
+        new_node->next = TEMP->next;
+        TEMP->next = new_node;
+    }
 }
+
+
+void print_OPEN (open_node* OPEN) {
+    open_node* TEMP = OPEN;
+    printf("\nOPEN list:\nNode index\tf\n");
+    while (TEMP != NULL) {
+        printf("%lu\t\t%f\n", (TEMP)->index, TEMP->f);
+        TEMP = TEMP->next;
+    }
+    printf("\n");
+}
+
+
+
+
+
+
+
+
+
+
+

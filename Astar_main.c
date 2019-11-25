@@ -13,9 +13,6 @@ int main (int argc, char *argv[]) {
     if( fread(&nnodes, sizeof(unsigned long), 1, fin) +
         fread(&ntotnsucc, sizeof(unsigned long), 1, fin) != 2 )
             ExitError("when reading the header of the binary data file", 12);
-    /*debugging*/
-    printf("Total nodes: %lu\n", nnodes);
-    printf("Total successors: %lu\n", ntotnsucc);
     
 // Getting memory for all data
     node* nodes;
@@ -40,8 +37,10 @@ int main (int argc, char *argv[]) {
         allsuccessors += nodes[i].nsucc;
     }
     
-    unsigned long source = 771979683;   // id of nodes source and dest
-    unsigned long dest = 429854583;
+    unsigned long source = 8670492;   // id of nodes source and dest
+    unsigned long dest   = 1543294778;
+    unsigned long dest_index = (unsigned long)binary_search(nodes, dest, 0, nnodes-1);
+    printf("%lu\n", (nodes+dest_index)->id);
     
     AStar(nodes, source, dest, nnodes);
     
