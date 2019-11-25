@@ -62,6 +62,28 @@ int main (int argc, char *argv[]) {
     free(succ_counter);     // free nodes successors counters, not necessary anymore
     free(line_buf);         // free the allocated line buffer
     fclose(fmap);           // close .csv file
+    
+    /*debugging*/
+    int j, k;
+    unsigned long aux;
+    for (i = 0; i < 2000; i++) {
+        for (j = 0; j < (nodes+i)->nsucc; j++) {
+            aux = ((nodes+i)->successors)[j];
+             for (k = j+1; k < (nodes+i)->nsucc; k++) {
+                 if ((aux == ((nodes+i)->successors)[k]) && (j != k)) {
+                     printf("node %lu has repeated successors: %lu and %lu, in positions %d and %d\n", i, aux, ((nodes+i)->successors)[k], j, k);
+                 }
+             }
+        }
+    }
+    
+    for (i = 0; i < 2000; i++) {
+        printf("node %lu; nsucc %d -> ", i, (nodes+i)->nsucc);
+        for (j = 0; j < (nodes+i)->nsucc; j++) {
+            printf("%lu  ", ((nodes+i)->successors)[j]);
+        }
+        printf("\n");
+    }
 
 /*** WRITE BINARY FILE ***/
     FILE *fin;

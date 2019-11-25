@@ -7,7 +7,7 @@ void AStar (node* nodes, unsigned long source, unsigned long dest, unsigned long
     unsigned long i;
     for (i=0; i < nnodes; i++) {
         (progress+i)->whq = 0;                                                      // all nodes start neither in OPEN nor CLOSED list
-        (progress+i)->g = INFINITY;                                                 // all nodes start 
+        (progress+i)->g = INFINITY;                                                 // all nodes start with INF g function
     }
         
     unsigned long source_index = binary_search(nodes, source, 0, nnodes);           // find index of source in nodes vector
@@ -21,7 +21,6 @@ void AStar (node* nodes, unsigned long source, unsigned long dest, unsigned long
     struct open_node* OPEN;                                                         
     if ((OPEN = (open_node*) malloc(sizeof(open_node))) == NULL)
         ExitError("when allocating memory for the OPEN list", 13);
-    struct open_node* AUX = NULL;
     
 // to start, only element in the OPEN list is the source node
     OPEN->f = (progress + source_index)->g + (progress + source_index)->h;
@@ -37,46 +36,24 @@ void AStar (node* nodes, unsigned long source, unsigned long dest, unsigned long
     while (OPEN != NULL) {
         expanded_nodes += 0;
         cur_index = OPEN->index;
+        /*debugging*/printf("Expanding node: %lu (id %lu, nsucc %d)\n", cur_index, (nodes+cur_index)->id, (nodes+cur_index)->nsucc);
         if (cur_index == dest_index) {                                                  // we have reached destination -> break
             printf("A* algorithm has reached node with ID %lu. Loop will now be exited.\n\n", cur_index);
             break;
         }
         for (succ_count = 0; succ_count < (nodes + cur_index)->nsucc; succ_count++) {   // generate successors
             succ_index = ((nodes + cur_index)->successors)[i];
+            /*debugging*/printf("\tExploring successor: %lu (id %lu)\n", succ_index, (nodes+succ_index)->id);
             w = haversine( *(nodes + cur_index), *(nodes + succ_index) );
-            successor_current_cost = (progress + cur_index)->g + w;
-            if ( (progress + succ_index)->whq == 1 ) {                                  // successor is in the OPEN list
-                if ( (progress + succ_index)->g <= successor_current_cost ) continue;
-            }
-            else if ( (progress + succ_index)->whq == 2 ) {                             // successor is in the CLOSE list
-                if ( (progress + succ_index)->g <= successor_current_cost ) continue;
-                /* insert successor from close to open list, maintainning ordering of f! */
-            }
-            else {                                                                      // successor not in OPEN nor CLOSE list
-                (progress + succ_index)->h = haversine( *(nodes + succ_index), *(nodes + dest_index) );
-                /* insert successor from close to open list, maintainning ordering of f! */
-            }
-            (progress + succ_index)->g = successor_current_cost;
-            (progress + succ_index)->parent = cur_index;
         }
-        (progress + cur_index)->whq = 2;                                               // move current node from OPEN to CLOSE list
-        AUX = OPEN->next;                                                              // select next element in OPEN list
-        free(OPEN);
-        OPEN = AUX;                                                             
+        (progress + cur_index)->whq = 2;                                                // move current node from OPEN to CLOSE list
+        OPEN = OPEN->next;                                                              // select next element in OPEN list                                                            
     }
     
-    OPEN -= expanded_nodes;
-    free(OPEN);
     free(progress);
 }
 
 
-void insert_to_OPEN (unsigned long index, AStarStatus* progress, open_node* OPEN) {
-    (progress + index)->whq = 1;
-    /* malloc a new node_open and compute its f = g + h from data in progress .
-     * insert it in OPEN by setting pointers in ascending order of f.
-     * Two distinct cases: new open_ndoe goes in between two other open_nodes
-     * or new node_open goes at the end of the OPEN list. */
-}
+
 
 

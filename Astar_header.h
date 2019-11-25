@@ -133,6 +133,21 @@ void update_successors(char* line, node* nodes, unsigned long nnodes, unsigned s
     }
 }
 
+void delete_duplicates(node* nodes, unsigned long nnodes, unsigned short* nsuccdim) {
+    unsigned long i;
+    unsigned short j, k;
+    signed long* aux = NULL;
+    for (i = 0; i < nnodes; i++) {
+        if((aux = (signed long*) malloc(nsuccdim[i]*sizeof(signed long))) == NULL) ExitError("when allocating memory for auxiliary copy of successors", 5);
+        for (j = 0; j < (nodes+i)->nsucc; j++) {
+            for (k = 0; k < j; k++) {
+                if ( ((nodes+i)->successors)[j] == ((nodes+i)->successors)[k] ) { *aux = -1; aux++; break; }
+            }
+        }
+        free(aux);
+    }
+}
+
 /*** Heuristic functions: http://movable-type.co.uk/scripts/latlong.html ***/
 double haversine (node u, node v) {
     double diff_lat = (u.lat - v.lat) * pi / 180.f;
@@ -141,4 +156,31 @@ double haversine (node u, node v) {
     double c = 2 * atan2(sqrt(a), sqrt(1-a));
     double d = R * c;
     return d;
+}
+
+void insert_to_OPEN (unsigned long index, AStarStatus* progress, open_node* OPEN) {
+    (progress + index)->whq = 1;
+    struct open_node* new_open_node = NULL;
+    if ((new_open_node = (open_node*) malloc(sizeof(open_node))) == NULL)
+        ExitError("when allocating memory for a new node in the OPEN list", 13);
+    new_open_node->f = (progress + index)->g + (progress + index)->h;
+    new_open_node->index = index;
+    new_open_node->next = NULL;
+    
+// if the node has to be inserted at the front of the queue
+    if ( new_open_node->f <= OPEN->f ) {
+        new_open_node->next = OPEN;
+        OPEN = new_open_node;
+        return;
+    }
+    
+// if the node has to be inserted in the middle or end of the queue
+    struct open_node* TEMP = OPEN;
+    while ( ((TEMP->next)->f < new_open_node->f) && (TEMP->next != NULL) ) TEMP = TEMP->next;
+// if we have reached the end of the queue
+    if (TEMP->next == NULL) TEMP->next = new_open_node;
+    else {
+        new_open_node->next = TEMP->next;
+        TEMP->next = new_open_node;
+    }
 }
