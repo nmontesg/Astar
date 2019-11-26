@@ -39,8 +39,21 @@ int main (int argc, char *argv[]) {
     }
         
     unsigned long source = 8670491;             // id of source
-    unsigned long dest = 8670521;               // id of dest
-    AStar(nodes, source, dest, nnodes);
+    unsigned long dest = 8670536;               // id of dest
+    
+// User chooses distance formula
+    unsigned short dist_func;
+    printf("Choose the distance formula (for more info go to http://movable-type.co.uk/scripts/latlong.html):\n");
+    printf("\t1 : Haversine formula\n");
+    printf("\t2 : Spherical Law of Cosines\n");
+    printf("\t3 : Equirectangular approximation\n");
+    scanf("%hu", &dist_func);
+    while ( dist_func<1 || dist_func>3 ) {
+        printf("Invalid choice of distance formula. Please enter your choice again: ");
+        scanf("%hu", &dist_func);
+    }
+
+    AStar(nodes, source, dest, nnodes, dist_func);
     
     
 /*** Free all allocated memory ***/

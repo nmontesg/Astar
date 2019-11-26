@@ -1,4 +1,4 @@
-void AStar (node* nodes, unsigned long source, unsigned long dest, unsigned long nnodes) {
+void AStar (node* nodes, unsigned long source, unsigned long dest, unsigned long nnodes, unsigned short dist_formula) {
     
     unsigned long source_index = (unsigned long)binary_search(nodes, source, 0, nnodes-1);           // find index of source in nodes vector
     unsigned long dest_index   = (unsigned long)binary_search(nodes, dest, 0, nnodes-1);             // find index of destination in nodes vector
@@ -18,7 +18,7 @@ void AStar (node* nodes, unsigned long source, unsigned long dest, unsigned long
     }
     (progress + source_index)->whq = 1;                                                         // put source node in the OPEN list
     (progress + source_index)->g = 0;                                                           // g(source) = 0
-    (progress + source_index)->h = haversine( *(nodes + source_index), *(nodes + dest_index) ); // h(source) = heuristic distance to destination
+    (progress + source_index)->h = distance( *(nodes + source_index), *(nodes + dest_index), dist_formula ); // h(source) = heuristic distance to destination
 
 // OPEN list and auxiliary
     struct open_node* OPEN = NULL;                                                         
@@ -63,7 +63,7 @@ void AStar (node* nodes, unsigned long source, unsigned long dest, unsigned long
         /* successor not in OPEN nor CLOSE list */
             else {                                                                      
                 /*debugging*/printf("\tsuccessor not in OPEN nor CLOSE list\n");
-                (progress + succ_index)->h = haversine( *(nodes + succ_index), *(nodes + dest_index) ); // compute h function of successor
+                (progress + succ_index)->h = distance( *(nodes + succ_index), *(nodes + dest_index), dist_formula ); // compute h function of successor
             }
             (progress + succ_index)->g = successor_current_cost;                        // set successor cost as that coming from the current node
             (progress + succ_index)->parent = cur_index;                                // set successor parent as current node

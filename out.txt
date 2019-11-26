@@ -1,0 +1,2555 @@
+A* will compute the route:
+	from: ID 8670491	latitude 41.2319821	longitude 1.6907310
+	to:   ID 8670536	latitude 41.2326156	longitude 1.6946097
+
+OPEN list:
+Node index	f
+0		0.331911
+
+Expanding node: 0 (id 8670491, nsucc 2)
+	Exploring successor: 106 (id 8773162)
+	successor not in OPEN nor CLOSE list
+	successor is inserted into the OPEN list
+
+	Exploring successor: 1 (id 8670492)
+	successor not in OPEN nor CLOSE list
+	successor is inserted into the OPEN list
+
+
+
+OPEN list:
+Node index	f
+106		0.343253
+1		0.375070
+
+Expanding node: 106 (id 8773162, nsucc 2)
+	Exploring successor: 105 (id 8773161)
+	successor not in OPEN nor CLOSE list
+	successor is inserted into the OPEN list
+
+	Exploring successor: 0 (id 8670491)
+	successor in CLOSE list
+
+
+
+OPEN list:
+Node index	f
+105		0.348033
+1		0.375070
+
+Expanding node: 105 (id 8773161, nsucc 3)
+	Exploring successor: 104 (id 8773160)
+	successor not in OPEN nor CLOSE list
+	successor is inserted into the OPEN list
+
+	Exploring successor: 108 (id 8773164)
+	successor not in OPEN nor CLOSE list
+	successor is inserted into the OPEN list
+
+	Exploring successor: 106 (id 8773162)
+	successor in CLOSE list
+
+
+
+OPEN list:
+Node index	f
+104		0.351845
+108		0.366199
+1		0.375070
+
+Expanding node: 104 (id 8773160, nsucc 2)
+	Exploring successor: 103 (id 8773159)
+	successor not in OPEN nor CLOSE list
+	successor is inserted into the OPEN list
+
+	Exploring successor: 105 (id 8773161)
+	successor in CLOSE list
+
+
+
+OPEN list:
+Node index	f
+103		0.363368
+108		0.366199
+1		0.375070
+
+Expanding node: 103 (id 8773159, nsucc 2)
+	Exploring successor: 109 (id 8773166)
+	successor not in OPEN nor CLOSE list
+	successor is inserted into the OPEN list
+
+	Exploring successor: 104 (id 8773160)
+	successor in CLOSE list
+
+
+
+OPEN list:
+Node index	f
+108		0.366199
+1		0.375070
+109		0.379539
+
+Expanding node: 108 (id 8773164, nsucc 2)
+	Exploring successor: 105 (id 8773161)
+	successor in CLOSE list
+
+	Exploring successor: 107 (id 8773163)
+	successor not in OPEN nor CLOSE list
+	successor is inserted into the OPEN list
+
+
+
+OPEN list:
+Node index	f
+1		0.375070
+109		0.379539
+107		0.381542
+
+Expanding node: 1 (id 8670492, nsucc 3)
+	Exploring successor: 2 (id 8670493)
+	successor not in OPEN nor CLOSE list
+	successor is inserted into the OPEN list
+
+	Exploring successor: 4 (id 8670495)
+	successor not in OPEN nor CLOSE list
+	successor is inserted into the OPEN list
+
+	Exploring successor: 0 (id 8670491)
+	successor in CLOSE list
+
+
+
+OPEN list:
+Node index	f
+2		0.375110
+109		0.379539
+107		0.381542
+4		0.396684
+
+Expanding node: 2 (id 8670493, nsucc 2)
+	Exploring successor: 1 (id 8670492)
+	successor in CLOSE list
+
+	Exploring successor: 3 (id 8670494)
+	successor not in OPEN nor CLOSE list
+	successor is inserted into the OPEN list
+
+
+
+OPEN list:
+Node index	f
+109		0.379539
+107		0.381542
+4		0.396684
+3		0.427649
+
+Expanding node: 109 (id 8773166, nsucc 2)
+	Exploring successor: 102 (id 8773157)
+	successor not in OPEN nor CLOSE list
+	successor is inserted into the OPEN list
+
+	Exploring successor: 103 (id 8773159)
+	successor in CLOSE list
+
+
+
+OPEN list:
+Node index	f
+107		0.381542
+102		0.384481
+4		0.396684
+3		0.427649
+
+Expanding node: 107 (id 8773163, nsucc 2)
+	Exploring successor: 108 (id 8773164)
+	successor in CLOSE list
+
+	Exploring successor: 92 (id 8773144)
+	successor not in OPEN nor CLOSE list
+	successor is inserted into the OPEN list
+
+
+
+OPEN list:
+Node index	f
+102		0.384481
+4		0.396684
+92		0.398620
+3		0.427649
+
+Expanding node: 102 (id 8773157, nsucc 4)
+	Exploring successor: 101 (id 8773153)
+	successor not in OPEN nor CLOSE list
+	successor is inserted into the OPEN list
+
+	Exploring successor: 109 (id 8773166)
+	successor in CLOSE list
+
+	Exploring successor: 110 (id 8773169)
+	successor not in OPEN nor CLOSE list
+	successor is inserted into the OPEN list
+
+	Exploring successor: 95 (id 8773147)
+	successor not in OPEN nor CLOSE list
+	successor is inserted into the OPEN list
+
+
+
+OPEN list:
+Node index	f
+4		0.396684
+110		0.396783
+92		0.398620
+101		0.406313
+3		0.427649
+95		0.491792
+
+Expanding node: 4 (id 8670495, nsucc 2)
+	Exploring successor: 1 (id 8670492)
+	successor in CLOSE list
+
+	Exploring successor: 5 (id 8670496)
+	successor not in OPEN nor CLOSE list
+	successor is inserted into the OPEN list
+
+
+
+OPEN list:
+Node index	f
+110		0.396783
+92		0.398620
+5		0.406238
+101		0.406313
+3		0.427649
+95		0.491792
+
+Expanding node: 110 (id 8773169, nsucc 2)
+	Exploring successor: 102 (id 8773157)
+	successor in CLOSE list
+
+	Exploring successor: 111 (id 8773171)
+	successor not in OPEN nor CLOSE list
+	successor is inserted into the OPEN list
+
+
+
+OPEN list:
+Node index	f
+92		0.398620
+5		0.406238
+101		0.406313
+111		0.408448
+3		0.427649
+95		0.491792
+
+Expanding node: 92 (id 8773144, nsucc 3)
+	Exploring successor: 107 (id 8773163)
+	successor in CLOSE list
+
+	Exploring successor: 93 (id 8773145)
+	successor not in OPEN nor CLOSE list
+	successor is inserted into the OPEN list
+
+	Exploring successor: 91 (id 8773143)
+	successor not in OPEN nor CLOSE list
+	successor is inserted into the OPEN list
+
+
+
+OPEN list:
+Node index	f
+91		0.402125
+5		0.406238
+101		0.406313
+111		0.408448
+93		0.419675
+3		0.427649
+95		0.491792
+
+Expanding node: 91 (id 8773143, nsucc 2)
+	Exploring successor: 90 (id 8773142)
+	successor not in OPEN nor CLOSE list
+	successor is inserted into the OPEN list
+
+	Exploring successor: 92 (id 8773144)
+	successor in CLOSE list
+
+
+
+OPEN list:
+Node index	f
+5		0.406238
+101		0.406313
+111		0.408448
+90		0.412380
+93		0.419675
+3		0.427649
+95		0.491792
+
+Expanding node: 5 (id 8670496, nsucc 2)
+	Exploring successor: 4 (id 8670495)
+	successor in CLOSE list
+
+	Exploring successor: 6 (id 8670497)
+	successor not in OPEN nor CLOSE list
+	successor is inserted into the OPEN list
+
+
+
+OPEN list:
+Node index	f
+101		0.406313
+6		0.407876
+111		0.408448
+90		0.412380
+93		0.419675
+3		0.427649
+95		0.491792
+
+Expanding node: 101 (id 8773153, nsucc 3)
+	Exploring successor: 100 (id 8773152)
+	successor not in OPEN nor CLOSE list
+	successor is inserted into the OPEN list
+
+	Exploring successor: 102 (id 8773157)
+	successor in CLOSE list
+
+	Exploring successor: 626904 (id 628213218)
+	successor not in OPEN nor CLOSE list
+	successor is inserted into the OPEN list
+
+
+
+OPEN list:
+Node index	f
+6		0.407876
+111		0.408448
+90		0.412380
+93		0.419675
+626904		0.424289
+3		0.427649
+100		0.427936
+95		0.491792
+
+Expanding node: 6 (id 8670497, nsucc 2)
+	Exploring successor: 5 (id 8670496)
+	successor in CLOSE list
+
+	Exploring successor: 7 (id 8670498)
+	successor not in OPEN nor CLOSE list
+	successor is inserted into the OPEN list
+
+
+
+OPEN list:
+Node index	f
+7		0.407913
+111		0.408448
+90		0.412380
+93		0.419675
+626904		0.424289
+3		0.427649
+100		0.427936
+95		0.491792
+
+Expanding node: 7 (id 8670498, nsucc 2)
+	Exploring successor: 6 (id 8670497)
+	successor in CLOSE list
+
+	Exploring successor: 8 (id 8670500)
+	successor not in OPEN nor CLOSE list
+	successor is inserted into the OPEN list
+
+
+
+OPEN list:
+Node index	f
+111		0.408448
+8		0.410477
+90		0.412380
+93		0.419675
+626904		0.424289
+3		0.427649
+100		0.427936
+95		0.491792
+
+Expanding node: 111 (id 8773171, nsucc 2)
+	Exploring successor: 110 (id 8773169)
+	successor in CLOSE list
+
+	Exploring successor: 112 (id 8773172)
+	successor not in OPEN nor CLOSE list
+	successor is inserted into the OPEN list
+
+
+
+OPEN list:
+Node index	f
+8		0.410477
+90		0.412380
+93		0.419675
+626904		0.424289
+112		0.427150
+3		0.427649
+100		0.427936
+95		0.491792
+
+Expanding node: 8 (id 8670500, nsucc 3)
+	Exploring successor: 7 (id 8670498)
+	successor in CLOSE list
+
+	Exploring successor: 9 (id 8670502)
+	successor not in OPEN nor CLOSE list
+	successor is inserted into the OPEN list
+
+	Exploring successor: 74 (id 8773126)
+	successor not in OPEN nor CLOSE list
+	successor is inserted into the OPEN list
+
+
+
+OPEN list:
+Node index	f
+90		0.412380
+93		0.419675
+9		0.422693
+626904		0.424289
+74		0.426132
+112		0.427150
+3		0.427649
+100		0.427936
+95		0.491792
+
+Expanding node: 90 (id 8773142, nsucc 2)
+	Exploring successor: 89 (id 8773141)
+	successor not in OPEN nor CLOSE list
+	successor is inserted into the OPEN list
+
+	Exploring successor: 91 (id 8773143)
+	successor in CLOSE list
+
+
+
+OPEN list:
+Node index	f
+93		0.419675
+9		0.422693
+626904		0.424289
+74		0.426132
+112		0.427150
+3		0.427649
+100		0.427936
+89		0.428664
+95		0.491792
+
+Expanding node: 93 (id 8773145, nsucc 2)
+	Exploring successor: 92 (id 8773144)
+	successor in CLOSE list
+
+	Exploring successor: 94 (id 8773146)
+	successor not in OPEN nor CLOSE list
+	successor is inserted into the OPEN list
+
+
+
+OPEN list:
+Node index	f
+9		0.422693
+626904		0.424289
+74		0.426132
+112		0.427150
+3		0.427649
+100		0.427936
+89		0.428664
+94		0.438431
+95		0.491792
+
+Expanding node: 9 (id 8670502, nsucc 2)
+	Exploring successor: 8 (id 8670500)
+	successor in CLOSE list
+
+	Exploring successor: 10 (id 8670503)
+	successor not in OPEN nor CLOSE list
+	successor is inserted into the OPEN list
+
+
+
+OPEN list:
+Node index	f
+626904		0.424289
+74		0.426132
+112		0.427150
+3		0.427649
+100		0.427936
+89		0.428664
+94		0.438431
+10		0.446142
+95		0.491792
+
+Expanding node: 626904 (id 628213218, nsucc 2)
+	Exploring successor: 626902 (id 628213216)
+	successor not in OPEN nor CLOSE list
+	successor is inserted into the OPEN list
+
+	Exploring successor: 101 (id 8773153)
+	successor in CLOSE list
+
+
+
+OPEN list:
+Node index	f
+74		0.426132
+112		0.427150
+3		0.427649
+100		0.427936
+89		0.428664
+94		0.438431
+10		0.446142
+95		0.491792
+626902		0.605336
+
+Expanding node: 74 (id 8773126, nsucc 2)
+	Exploring successor: 8 (id 8670500)
+	successor in CLOSE list
+
+	Exploring successor: 75 (id 8773127)
+	successor not in OPEN nor CLOSE list
+	successor is inserted into the OPEN list
+
+
+
+OPEN list:
+Node index	f
+112		0.427150
+3		0.427649
+100		0.427936
+89		0.428664
+94		0.438431
+75		0.442423
+10		0.446142
+95		0.491792
+626902		0.605336
+
+Expanding node: 112 (id 8773172, nsucc 2)
+	Exploring successor: 111 (id 8773171)
+	successor in CLOSE list
+
+	Exploring successor: 113 (id 8773173)
+	successor not in OPEN nor CLOSE list
+	successor is inserted into the OPEN list
+
+
+
+OPEN list:
+Node index	f
+3		0.427649
+100		0.427936
+89		0.428664
+94		0.438431
+75		0.442423
+10		0.446142
+113		0.461762
+95		0.491792
+626902		0.605336
+
+Expanding node: 3 (id 8670494, nsucc 1)
+	Exploring successor: 2 (id 8670493)
+	successor in CLOSE list
+
+
+
+OPEN list:
+Node index	f
+100		0.427936
+89		0.428664
+94		0.438431
+75		0.442423
+10		0.446142
+113		0.461762
+95		0.491792
+626902		0.605336
+
+Expanding node: 100 (id 8773152, nsucc 2)
+	Exploring successor: 99 (id 8773151)
+	successor not in OPEN nor CLOSE list
+	successor is inserted into the OPEN list
+
+	Exploring successor: 101 (id 8773153)
+	successor in CLOSE list
+
+
+
+OPEN list:
+Node index	f
+89		0.428664
+94		0.438431
+75		0.442423
+10		0.446142
+99		0.450685
+113		0.461762
+95		0.491792
+626902		0.605336
+
+Expanding node: 89 (id 8773141, nsucc 2)
+	Exploring successor: 88 (id 8773140)
+	successor not in OPEN nor CLOSE list
+	successor is inserted into the OPEN list
+
+	Exploring successor: 90 (id 8773142)
+	successor in CLOSE list
+
+
+
+OPEN list:
+Node index	f
+88		0.438194
+94		0.438431
+75		0.442423
+10		0.446142
+99		0.450685
+113		0.461762
+95		0.491792
+626902		0.605336
+
+Expanding node: 88 (id 8773140, nsucc 2)
+	Exploring successor: 87 (id 8773139)
+	successor not in OPEN nor CLOSE list
+	successor is inserted into the OPEN list
+
+	Exploring successor: 89 (id 8773141)
+	successor in CLOSE list
+
+
+
+OPEN list:
+Node index	f
+94		0.438431
+75		0.442423
+10		0.446142
+87		0.446712
+99		0.450685
+113		0.461762
+95		0.491792
+626902		0.605336
+
+Expanding node: 94 (id 8773146, nsucc 2)
+	Exploring successor: 93 (id 8773145)
+	successor in CLOSE list
+
+	Exploring successor: 95 (id 8773147)
+	successor in OPEN list
+	successor is deleted from the OPEN list
+	successor is inserted into the OPEN list
+
+
+
+OPEN list:
+Node index	f
+75		0.442423
+10		0.446142
+87		0.446712
+95		0.449273
+99		0.450685
+113		0.461762
+626902		0.605336
+
+Expanding node: 75 (id 8773127, nsucc 2)
+	Exploring successor: 74 (id 8773126)
+	successor in CLOSE list
+
+	Exploring successor: 76 (id 8773128)
+	successor not in OPEN nor CLOSE list
+	successor is inserted into the OPEN list
+
+
+
+OPEN list:
+Node index	f
+10		0.446142
+87		0.446712
+95		0.449273
+99		0.450685
+76		0.454647
+113		0.461762
+626902		0.605336
+
+Expanding node: 10 (id 8670503, nsucc 2)
+	Exploring successor: 9 (id 8670502)
+	successor in CLOSE list
+
+	Exploring successor: 11 (id 8670505)
+	successor not in OPEN nor CLOSE list
+	successor is inserted into the OPEN list
+
+
+
+OPEN list:
+Node index	f
+87		0.446712
+95		0.449273
+99		0.450685
+76		0.454647
+113		0.461762
+11		0.478738
+626902		0.605336
+
+Expanding node: 87 (id 8773139, nsucc 2)
+	Exploring successor: 86 (id 8773138)
+	successor not in OPEN nor CLOSE list
+	successor is inserted into the OPEN list
+
+	Exploring successor: 88 (id 8773140)
+	successor in CLOSE list
+
+
+
+OPEN list:
+Node index	f
+95		0.449273
+99		0.450685
+86		0.451331
+76		0.454647
+113		0.461762
+11		0.478738
+626902		0.605336
+
+Expanding node: 95 (id 8773147, nsucc 5)
+	Exploring successor: 94 (id 8773146)
+	successor in CLOSE list
+
+	Exploring successor: 2899446 (id 1226077010)
+	successor not in OPEN nor CLOSE list
+	successor is inserted into the OPEN list
+
+	Exploring successor: 142640 (id 331032795)
+	successor not in OPEN nor CLOSE list
+	successor is inserted into the OPEN list
+
+	Exploring successor: 675429 (id 688401671)
+	successor not in OPEN nor CLOSE list
+	successor is inserted into the OPEN list
+
+	Exploring successor: 102 (id 8773157)
+	successor in CLOSE list
+
+
+
+OPEN list:
+Node index	f
+99		0.450685
+86		0.451331
+675429		0.452785
+76		0.454647
+113		0.461762
+2899446		0.461872
+11		0.478738
+142640		0.580222
+626902		0.605336
+
+Expanding node: 99 (id 8773151, nsucc 2)
+	Exploring successor: 98 (id 8773150)
+	successor not in OPEN nor CLOSE list
+	successor is inserted into the OPEN list
+
+	Exploring successor: 100 (id 8773152)
+	successor in CLOSE list
+
+
+
+OPEN list:
+Node index	f
+86		0.451331
+675429		0.452785
+76		0.454647
+113		0.461762
+2899446		0.461872
+98		0.472586
+11		0.478738
+142640		0.580222
+626902		0.605336
+
+Expanding node: 86 (id 8773138, nsucc 2)
+	Exploring successor: 85 (id 8773137)
+	successor not in OPEN nor CLOSE list
+	successor is inserted into the OPEN list
+
+	Exploring successor: 87 (id 8773139)
+	successor in CLOSE list
+
+
+
+OPEN list:
+Node index	f
+675429		0.452785
+76		0.454647
+85		0.460756
+113		0.461762
+2899446		0.461872
+98		0.472586
+11		0.478738
+142640		0.580222
+626902		0.605336
+
+Expanding node: 675429 (id 688401671, nsucc 2)
+	Exploring successor: 95 (id 8773147)
+	successor in CLOSE list
+
+	Exploring successor: 2899397 (id 1226076894)
+	successor not in OPEN nor CLOSE list
+	successor is inserted into the OPEN list
+
+
+
+OPEN list:
+Node index	f
+76		0.454647
+85		0.460756
+113		0.461762
+2899446		0.461872
+98		0.472586
+11		0.478738
+142640		0.580222
+626902		0.605336
+2899397		0.629945
+
+Expanding node: 76 (id 8773128, nsucc 2)
+	Exploring successor: 75 (id 8773127)
+	successor in CLOSE list
+
+	Exploring successor: 77 (id 8773129)
+	successor not in OPEN nor CLOSE list
+	successor is inserted into the OPEN list
+
+
+
+OPEN list:
+Node index	f
+85		0.460756
+113		0.461762
+2899446		0.461872
+77		0.464669
+98		0.472586
+11		0.478738
+142640		0.580222
+626902		0.605336
+2899397		0.629945
+
+Expanding node: 85 (id 8773137, nsucc 2)
+	Exploring successor: 84 (id 8773136)
+	successor not in OPEN nor CLOSE list
+	successor is inserted into the OPEN list
+
+	Exploring successor: 86 (id 8773138)
+	successor in CLOSE list
+
+
+
+OPEN list:
+Node index	f
+113		0.461762
+2899446		0.461872
+77		0.464669
+98		0.472586
+84		0.476573
+11		0.478738
+142640		0.580222
+626902		0.605336
+2899397		0.629945
+
+Expanding node: 113 (id 8773173, nsucc 2)
+	Exploring successor: 112 (id 8773172)
+	successor in CLOSE list
+
+	Exploring successor: 114 (id 8773174)
+	successor not in OPEN nor CLOSE list
+	successor is inserted into the OPEN list
+
+
+
+OPEN list:
+Node index	f
+2899446		0.461872
+77		0.464669
+98		0.472586
+84		0.476573
+11		0.478738
+114		0.508885
+142640		0.580222
+626902		0.605336
+2899397		0.629945
+
+Expanding node: 2899446 (id 1226077010, nsucc 2)
+	Exploring successor: 95 (id 8773147)
+	successor in CLOSE list
+
+	Exploring successor: 96 (id 8773148)
+	successor not in OPEN nor CLOSE list
+	successor is inserted into the OPEN list
+
+
+
+OPEN list:
+Node index	f
+77		0.464669
+96		0.470311
+98		0.472586
+84		0.476573
+11		0.478738
+114		0.508885
+142640		0.580222
+626902		0.605336
+2899397		0.629945
+
+Expanding node: 77 (id 8773129, nsucc 2)
+	Exploring successor: 76 (id 8773128)
+	successor in CLOSE list
+
+	Exploring successor: 73 (id 8773125)
+	successor not in OPEN nor CLOSE list
+	successor is inserted into the OPEN list
+
+
+
+OPEN list:
+Node index	f
+73		0.469850
+96		0.470311
+98		0.472586
+84		0.476573
+11		0.478738
+114		0.508885
+142640		0.580222
+626902		0.605336
+2899397		0.629945
+
+Expanding node: 73 (id 8773125, nsucc 3)
+	Exploring successor: 69 (id 8773121)
+	successor not in OPEN nor CLOSE list
+	successor is inserted into the OPEN list
+
+	Exploring successor: 70 (id 8773122)
+	successor not in OPEN nor CLOSE list
+	successor is inserted into the OPEN list
+
+	Exploring successor: 77 (id 8773129)
+	successor in CLOSE list
+
+
+
+OPEN list:
+Node index	f
+96		0.470311
+70		0.472391
+98		0.472586
+84		0.476573
+69		0.478720
+11		0.478738
+114		0.508885
+142640		0.580222
+626902		0.605336
+2899397		0.629945
+
+Expanding node: 96 (id 8773148, nsucc 2)
+	Exploring successor: 2899446 (id 1226077010)
+	successor in CLOSE list
+
+	Exploring successor: 97 (id 8773149)
+	successor not in OPEN nor CLOSE list
+	successor is inserted into the OPEN list
+
+
+
+OPEN list:
+Node index	f
+70		0.472391
+98		0.472586
+97		0.475155
+84		0.476573
+69		0.478720
+11		0.478738
+114		0.508885
+142640		0.580222
+626902		0.605336
+2899397		0.629945
+
+Expanding node: 70 (id 8773122, nsucc 2)
+	Exploring successor: 71 (id 8773123)
+	successor not in OPEN nor CLOSE list
+	successor is inserted into the OPEN list
+
+	Exploring successor: 73 (id 8773125)
+	successor in CLOSE list
+
+
+
+OPEN list:
+Node index	f
+98		0.472586
+97		0.475155
+84		0.476573
+71		0.477478
+69		0.478720
+11		0.478738
+114		0.508885
+142640		0.580222
+626902		0.605336
+2899397		0.629945
+
+Expanding node: 98 (id 8773150, nsucc 2)
+	Exploring successor: 97 (id 8773149)
+	successor in OPEN list
+	successor stays in OPEN list
+
+	Exploring successor: 99 (id 8773151)
+	successor in CLOSE list
+
+
+
+OPEN list:
+Node index	f
+97		0.475155
+84		0.476573
+71		0.477478
+69		0.478720
+11		0.478738
+114		0.508885
+142640		0.580222
+626902		0.605336
+2899397		0.629945
+
+Expanding node: 97 (id 8773149, nsucc 2)
+	Exploring successor: 98 (id 8773150)
+	successor in CLOSE list
+
+	Exploring successor: 96 (id 8773148)
+	successor in CLOSE list
+
+
+
+OPEN list:
+Node index	f
+84		0.476573
+71		0.477478
+69		0.478720
+11		0.478738
+114		0.508885
+142640		0.580222
+626902		0.605336
+2899397		0.629945
+
+Expanding node: 84 (id 8773136, nsucc 2)
+	Exploring successor: 83 (id 8773135)
+	successor not in OPEN nor CLOSE list
+	successor is inserted into the OPEN list
+
+	Exploring successor: 85 (id 8773137)
+	successor in CLOSE list
+
+
+
+OPEN list:
+Node index	f
+71		0.477478
+69		0.478720
+11		0.478738
+83		0.484682
+114		0.508885
+142640		0.580222
+626902		0.605336
+2899397		0.629945
+
+Expanding node: 71 (id 8773123, nsucc 2)
+	Exploring successor: 70 (id 8773122)
+	successor in CLOSE list
+
+	Exploring successor: 72 (id 8773124)
+	successor not in OPEN nor CLOSE list
+	successor is inserted into the OPEN list
+
+
+
+OPEN list:
+Node index	f
+69		0.478720
+11		0.478738
+83		0.484682
+72		0.485875
+114		0.508885
+142640		0.580222
+626902		0.605336
+2899397		0.629945
+
+Expanding node: 69 (id 8773121, nsucc 2)
+	Exploring successor: 68 (id 8773120)
+	successor not in OPEN nor CLOSE list
+	successor is inserted into the OPEN list
+
+	Exploring successor: 73 (id 8773125)
+	successor in CLOSE list
+
+
+
+OPEN list:
+Node index	f
+11		0.478738
+83		0.484682
+72		0.485875
+68		0.492584
+114		0.508885
+142640		0.580222
+626902		0.605336
+2899397		0.629945
+
+Expanding node: 11 (id 8670505, nsucc 2)
+	Exploring successor: 10 (id 8670503)
+	successor in CLOSE list
+
+	Exploring successor: 12 (id 8670506)
+	successor not in OPEN nor CLOSE list
+	successor is inserted into the OPEN list
+
+
+
+OPEN list:
+Node index	f
+83		0.484682
+72		0.485875
+12		0.491541
+68		0.492584
+114		0.508885
+142640		0.580222
+626902		0.605336
+2899397		0.629945
+
+Expanding node: 83 (id 8773135, nsucc 2)
+	Exploring successor: 82 (id 8773134)
+	successor not in OPEN nor CLOSE list
+	successor is inserted into the OPEN list
+
+	Exploring successor: 84 (id 8773136)
+	successor in CLOSE list
+
+
+
+OPEN list:
+Node index	f
+72		0.485875
+82		0.491121
+12		0.491541
+68		0.492584
+114		0.508885
+142640		0.580222
+626902		0.605336
+2899397		0.629945
+
+Expanding node: 72 (id 8773124, nsucc 3)
+	Exploring successor: 71 (id 8773123)
+	successor in CLOSE list
+
+	Exploring successor: 64 (id 8773116)
+	successor not in OPEN nor CLOSE list
+	successor is inserted into the OPEN list
+
+	Exploring successor: 626905 (id 628213223)
+	successor not in OPEN nor CLOSE list
+	successor is inserted into the OPEN list
+
+
+
+OPEN list:
+Node index	f
+82		0.491121
+12		0.491541
+68		0.492584
+64		0.496387
+114		0.508885
+626905		0.511394
+142640		0.580222
+626902		0.605336
+2899397		0.629945
+
+Expanding node: 82 (id 8773134, nsucc 2)
+	Exploring successor: 81 (id 8773133)
+	successor not in OPEN nor CLOSE list
+	successor is inserted into the OPEN list
+
+	Exploring successor: 83 (id 8773135)
+	successor in CLOSE list
+
+
+
+OPEN list:
+Node index	f
+12		0.491541
+68		0.492584
+81		0.495560
+64		0.496387
+114		0.508885
+626905		0.511394
+142640		0.580222
+626902		0.605336
+2899397		0.629945
+
+Expanding node: 12 (id 8670506, nsucc 2)
+	Exploring successor: 11 (id 8670505)
+	successor in CLOSE list
+
+	Exploring successor: 13 (id 8670507)
+	successor not in OPEN nor CLOSE list
+	successor is inserted into the OPEN list
+
+
+
+OPEN list:
+Node index	f
+68		0.492584
+13		0.494941
+81		0.495560
+64		0.496387
+114		0.508885
+626905		0.511394
+142640		0.580222
+626902		0.605336
+2899397		0.629945
+
+Expanding node: 68 (id 8773120, nsucc 2)
+	Exploring successor: 67 (id 8773119)
+	successor not in OPEN nor CLOSE list
+	successor is inserted into the OPEN list
+
+	Exploring successor: 69 (id 8773121)
+	successor in CLOSE list
+
+
+
+OPEN list:
+Node index	f
+13		0.494941
+81		0.495560
+64		0.496387
+67		0.503614
+114		0.508885
+626905		0.511394
+142640		0.580222
+626902		0.605336
+2899397		0.629945
+
+Expanding node: 13 (id 8670507, nsucc 2)
+	Exploring successor: 12 (id 8670506)
+	successor in CLOSE list
+
+	Exploring successor: 14 (id 8670509)
+	successor not in OPEN nor CLOSE list
+	successor is inserted into the OPEN list
+
+
+
+OPEN list:
+Node index	f
+14		0.495061
+81		0.495560
+64		0.496387
+67		0.503614
+114		0.508885
+626905		0.511394
+142640		0.580222
+626902		0.605336
+2899397		0.629945
+
+Expanding node: 14 (id 8670509, nsucc 2)
+	Exploring successor: 13 (id 8670507)
+	successor in CLOSE list
+
+	Exploring successor: 15 (id 8670510)
+	successor not in OPEN nor CLOSE list
+	successor is inserted into the OPEN list
+
+
+
+OPEN list:
+Node index	f
+15		0.495373
+81		0.495560
+64		0.496387
+67		0.503614
+114		0.508885
+626905		0.511394
+142640		0.580222
+626902		0.605336
+2899397		0.629945
+
+Expanding node: 15 (id 8670510, nsucc 4)
+	Exploring successor: 14 (id 8670509)
+	successor in CLOSE list
+
+	Exploring successor: 16 (id 8670511)
+	successor not in OPEN nor CLOSE list
+	successor is inserted into the OPEN list
+
+	Exploring successor: 39 (id 8773085)
+	successor not in OPEN nor CLOSE list
+	successor is inserted into the OPEN list
+
+	Exploring successor: 46 (id 8773096)
+	successor not in OPEN nor CLOSE list
+	successor is inserted into the OPEN list
+
+
+
+OPEN list:
+Node index	f
+39		0.495484
+81		0.495560
+64		0.496387
+16		0.496505
+46		0.499917
+67		0.503614
+114		0.508885
+626905		0.511394
+142640		0.580222
+626902		0.605336
+2899397		0.629945
+
+Expanding node: 39 (id 8773085, nsucc 2)
+	Exploring successor: 15 (id 8670510)
+	successor in CLOSE list
+
+	Exploring successor: 40 (id 8773087)
+	successor not in OPEN nor CLOSE list
+	successor is inserted into the OPEN list
+
+
+
+OPEN list:
+Node index	f
+81		0.495560
+40		0.495629
+64		0.496387
+16		0.496505
+46		0.499917
+67		0.503614
+114		0.508885
+626905		0.511394
+142640		0.580222
+626902		0.605336
+2899397		0.629945
+
+Expanding node: 81 (id 8773133, nsucc 2)
+	Exploring successor: 80 (id 8773132)
+	successor not in OPEN nor CLOSE list
+	successor is inserted into the OPEN list
+
+	Exploring successor: 82 (id 8773134)
+	successor in CLOSE list
+
+
+
+OPEN list:
+Node index	f
+40		0.495629
+64		0.496387
+16		0.496505
+46		0.499917
+80		0.503373
+67		0.503614
+114		0.508885
+626905		0.511394
+142640		0.580222
+626902		0.605336
+2899397		0.629945
+
+Expanding node: 40 (id 8773087, nsucc 2)
+	Exploring successor: 39 (id 8773085)
+	successor in CLOSE list
+
+	Exploring successor: 41 (id 8773089)
+	successor not in OPEN nor CLOSE list
+	successor is inserted into the OPEN list
+
+
+
+OPEN list:
+Node index	f
+41		0.495636
+64		0.496387
+16		0.496505
+46		0.499917
+80		0.503373
+67		0.503614
+114		0.508885
+626905		0.511394
+142640		0.580222
+626902		0.605336
+2899397		0.629945
+
+Expanding node: 41 (id 8773089, nsucc 2)
+	Exploring successor: 40 (id 8773087)
+	successor in CLOSE list
+
+	Exploring successor: 42 (id 8773090)
+	successor not in OPEN nor CLOSE list
+	successor is inserted into the OPEN list
+
+
+
+OPEN list:
+Node index	f
+42		0.495649
+64		0.496387
+16		0.496505
+46		0.499917
+80		0.503373
+67		0.503614
+114		0.508885
+626905		0.511394
+142640		0.580222
+626902		0.605336
+2899397		0.629945
+
+Expanding node: 42 (id 8773090, nsucc 3)
+	Exploring successor: 41 (id 8773089)
+	successor in CLOSE list
+
+	Exploring successor: 43 (id 8773092)
+	successor not in OPEN nor CLOSE list
+	successor is inserted into the OPEN list
+
+	Exploring successor: 50 (id 8773102)
+	successor not in OPEN nor CLOSE list
+	successor is inserted into the OPEN list
+
+
+
+OPEN list:
+Node index	f
+43		0.495650
+64		0.496387
+16		0.496505
+46		0.499917
+80		0.503373
+67		0.503614
+114		0.508885
+626905		0.511394
+50		0.526577
+142640		0.580222
+626902		0.605336
+2899397		0.629945
+
+Expanding node: 43 (id 8773092, nsucc 2)
+	Exploring successor: 42 (id 8773090)
+	successor in CLOSE list
+
+	Exploring successor: 44 (id 8773093)
+	successor not in OPEN nor CLOSE list
+	successor is inserted into the OPEN list
+
+
+
+OPEN list:
+Node index	f
+44		0.495972
+64		0.496387
+16		0.496505
+46		0.499917
+80		0.503373
+67		0.503614
+114		0.508885
+626905		0.511394
+50		0.526577
+142640		0.580222
+626902		0.605336
+2899397		0.629945
+
+Expanding node: 44 (id 8773093, nsucc 2)
+	Exploring successor: 43 (id 8773092)
+	successor in CLOSE list
+
+	Exploring successor: 45 (id 8773094)
+	successor not in OPEN nor CLOSE list
+	successor is inserted into the OPEN list
+
+
+
+OPEN list:
+Node index	f
+45		0.495998
+64		0.496387
+16		0.496505
+46		0.499917
+80		0.503373
+67		0.503614
+114		0.508885
+626905		0.511394
+50		0.526577
+142640		0.580222
+626902		0.605336
+2899397		0.629945
+
+Expanding node: 45 (id 8773094, nsucc 1)
+	Exploring successor: 44 (id 8773093)
+	successor in CLOSE list
+
+
+
+OPEN list:
+Node index	f
+64		0.496387
+16		0.496505
+46		0.499917
+80		0.503373
+67		0.503614
+114		0.508885
+626905		0.511394
+50		0.526577
+142640		0.580222
+626902		0.605336
+2899397		0.629945
+
+Expanding node: 64 (id 8773116, nsucc 2)
+	Exploring successor: 72 (id 8773124)
+	successor in CLOSE list
+
+	Exploring successor: 65 (id 8773117)
+	successor not in OPEN nor CLOSE list
+	successor is inserted into the OPEN list
+
+
+
+OPEN list:
+Node index	f
+16		0.496505
+46		0.499917
+80		0.503373
+67		0.503614
+114		0.508885
+65		0.510379
+626905		0.511394
+50		0.526577
+142640		0.580222
+626902		0.605336
+2899397		0.629945
+
+Expanding node: 16 (id 8670511, nsucc 3)
+	Exploring successor: 15 (id 8670510)
+	successor in CLOSE list
+
+	Exploring successor: 17 (id 8670512)
+	successor not in OPEN nor CLOSE list
+	successor is inserted into the OPEN list
+
+	Exploring successor: 51 (id 8773103)
+	successor not in OPEN nor CLOSE list
+	successor is inserted into the OPEN list
+
+
+
+OPEN list:
+Node index	f
+46		0.499917
+17		0.500217
+51		0.500338
+80		0.503373
+67		0.503614
+114		0.508885
+65		0.510379
+626905		0.511394
+50		0.526577
+142640		0.580222
+626902		0.605336
+2899397		0.629945
+
+Expanding node: 46 (id 8773096, nsucc 2)
+	Exploring successor: 47 (id 8773097)
+	successor not in OPEN nor CLOSE list
+	successor is inserted into the OPEN list
+
+	Exploring successor: 15 (id 8670510)
+	successor in CLOSE list
+
+
+
+OPEN list:
+Node index	f
+17		0.500217
+51		0.500338
+47		0.501847
+80		0.503373
+67		0.503614
+114		0.508885
+65		0.510379
+626905		0.511394
+50		0.526577
+142640		0.580222
+626902		0.605336
+2899397		0.629945
+
+Expanding node: 17 (id 8670512, nsucc 2)
+	Exploring successor: 16 (id 8670511)
+	successor in CLOSE list
+
+	Exploring successor: 18 (id 8670513)
+	successor not in OPEN nor CLOSE list
+	successor is inserted into the OPEN list
+
+
+
+OPEN list:
+Node index	f
+51		0.500338
+47		0.501847
+18		0.501989
+80		0.503373
+67		0.503614
+114		0.508885
+65		0.510379
+626905		0.511394
+50		0.526577
+142640		0.580222
+626902		0.605336
+2899397		0.629945
+
+Expanding node: 51 (id 8773103, nsucc 2)
+	Exploring successor: 52 (id 8773104)
+	successor not in OPEN nor CLOSE list
+	successor is inserted into the OPEN list
+
+	Exploring successor: 16 (id 8670511)
+	successor in CLOSE list
+
+
+
+OPEN list:
+Node index	f
+47		0.501847
+18		0.501989
+80		0.503373
+67		0.503614
+52		0.505203
+114		0.508885
+65		0.510379
+626905		0.511394
+50		0.526577
+142640		0.580222
+626902		0.605336
+2899397		0.629945
+
+Expanding node: 47 (id 8773097, nsucc 2)
+	Exploring successor: 48 (id 8773099)
+	successor not in OPEN nor CLOSE list
+	successor is inserted into the OPEN list
+
+	Exploring successor: 46 (id 8773096)
+	successor in CLOSE list
+
+
+
+OPEN list:
+Node index	f
+48		0.501882
+18		0.501989
+80		0.503373
+67		0.503614
+52		0.505203
+114		0.508885
+65		0.510379
+626905		0.511394
+50		0.526577
+142640		0.580222
+626902		0.605336
+2899397		0.629945
+
+Expanding node: 48 (id 8773099, nsucc 2)
+	Exploring successor: 49 (id 8773100)
+	successor not in OPEN nor CLOSE list
+	successor is inserted into the OPEN list
+
+	Exploring successor: 47 (id 8773097)
+	successor in CLOSE list
+
+
+
+OPEN list:
+Node index	f
+18		0.501989
+49		0.502114
+80		0.503373
+67		0.503614
+52		0.505203
+114		0.508885
+65		0.510379
+626905		0.511394
+50		0.526577
+142640		0.580222
+626902		0.605336
+2899397		0.629945
+
+Expanding node: 18 (id 8670513, nsucc 2)
+	Exploring successor: 17 (id 8670512)
+	successor in CLOSE list
+
+	Exploring successor: 19 (id 8670514)
+	successor not in OPEN nor CLOSE list
+	successor is inserted into the OPEN list
+
+
+
+OPEN list:
+Node index	f
+49		0.502114
+80		0.503373
+67		0.503614
+19		0.504579
+52		0.505203
+114		0.508885
+65		0.510379
+626905		0.511394
+50		0.526577
+142640		0.580222
+626902		0.605336
+2899397		0.629945
+
+Expanding node: 49 (id 8773100, nsucc 2)
+	Exploring successor: 50 (id 8773102)
+	successor in OPEN list
+	successor is deleted from the OPEN list
+	successor is inserted into the OPEN list
+
+	Exploring successor: 48 (id 8773099)
+	successor in CLOSE list
+
+
+
+OPEN list:
+Node index	f
+50		0.502700
+80		0.503373
+67		0.503614
+19		0.504579
+52		0.505203
+114		0.508885
+65		0.510379
+626905		0.511394
+142640		0.580222
+626902		0.605336
+2899397		0.629945
+
+Expanding node: 50 (id 8773102, nsucc 2)
+	Exploring successor: 42 (id 8773090)
+	successor in CLOSE list
+
+	Exploring successor: 49 (id 8773100)
+	successor in CLOSE list
+
+
+
+OPEN list:
+Node index	f
+80		0.503373
+67		0.503614
+19		0.504579
+52		0.505203
+114		0.508885
+65		0.510379
+626905		0.511394
+142640		0.580222
+626902		0.605336
+2899397		0.629945
+
+Expanding node: 80 (id 8773132, nsucc 2)
+	Exploring successor: 79 (id 8773131)
+	successor not in OPEN nor CLOSE list
+	successor is inserted into the OPEN list
+
+	Exploring successor: 81 (id 8773133)
+	successor in CLOSE list
+
+
+
+OPEN list:
+Node index	f
+67		0.503614
+19		0.504579
+52		0.505203
+114		0.508885
+65		0.510379
+626905		0.511394
+79		0.512671
+142640		0.580222
+626902		0.605336
+2899397		0.629945
+
+Expanding node: 67 (id 8773119, nsucc 3)
+	Exploring successor: 66 (id 8773118)
+	successor not in OPEN nor CLOSE list
+	successor is inserted into the OPEN list
+
+	Exploring successor: 68 (id 8773120)
+	successor in CLOSE list
+
+	Exploring successor: 78 (id 8773130)
+	successor not in OPEN nor CLOSE list
+	successor is inserted into the OPEN list
+
+
+
+OPEN list:
+Node index	f
+19		0.504579
+52		0.505203
+114		0.508885
+78		0.510277
+65		0.510379
+66		0.511248
+626905		0.511394
+79		0.512671
+142640		0.580222
+626902		0.605336
+2899397		0.629945
+
+Expanding node: 19 (id 8670514, nsucc 2)
+	Exploring successor: 18 (id 8670513)
+	successor in CLOSE list
+
+	Exploring successor: 20 (id 8670515)
+	successor not in OPEN nor CLOSE list
+	successor is inserted into the OPEN list
+
+
+
+OPEN list:
+Node index	f
+52		0.505203
+20		0.505885
+114		0.508885
+78		0.510277
+65		0.510379
+66		0.511248
+626905		0.511394
+79		0.512671
+142640		0.580222
+626902		0.605336
+2899397		0.629945
+
+Expanding node: 52 (id 8773104, nsucc 2)
+	Exploring successor: 53 (id 8773105)
+	successor not in OPEN nor CLOSE list
+	successor is inserted into the OPEN list
+
+	Exploring successor: 51 (id 8773103)
+	successor in CLOSE list
+
+
+
+OPEN list:
+Node index	f
+20		0.505885
+53		0.507677
+114		0.508885
+78		0.510277
+65		0.510379
+66		0.511248
+626905		0.511394
+79		0.512671
+142640		0.580222
+626902		0.605336
+2899397		0.629945
+
+Expanding node: 20 (id 8670515, nsucc 2)
+	Exploring successor: 19 (id 8670514)
+	successor in CLOSE list
+
+	Exploring successor: 21 (id 8670516)
+	successor not in OPEN nor CLOSE list
+	successor is inserted into the OPEN list
+
+
+
+OPEN list:
+Node index	f
+21		0.506315
+53		0.507677
+114		0.508885
+78		0.510277
+65		0.510379
+66		0.511248
+626905		0.511394
+79		0.512671
+142640		0.580222
+626902		0.605336
+2899397		0.629945
+
+Expanding node: 21 (id 8670516, nsucc 2)
+	Exploring successor: 20 (id 8670515)
+	successor in CLOSE list
+
+	Exploring successor: 22 (id 8670517)
+	successor not in OPEN nor CLOSE list
+	successor is inserted into the OPEN list
+
+
+
+OPEN list:
+Node index	f
+22		0.506528
+53		0.507677
+114		0.508885
+78		0.510277
+65		0.510379
+66		0.511248
+626905		0.511394
+79		0.512671
+142640		0.580222
+626902		0.605336
+2899397		0.629945
+
+Expanding node: 22 (id 8670517, nsucc 2)
+	Exploring successor: 21 (id 8670516)
+	successor in CLOSE list
+
+	Exploring successor: 23 (id 8670518)
+	successor not in OPEN nor CLOSE list
+	successor is inserted into the OPEN list
+
+
+
+OPEN list:
+Node index	f
+53		0.507677
+23		0.508306
+114		0.508885
+78		0.510277
+65		0.510379
+66		0.511248
+626905		0.511394
+79		0.512671
+142640		0.580222
+626902		0.605336
+2899397		0.629945
+
+Expanding node: 53 (id 8773105, nsucc 2)
+	Exploring successor: 52 (id 8773104)
+	successor in CLOSE list
+
+	Exploring successor: 54 (id 8773106)
+	successor not in OPEN nor CLOSE list
+	successor is inserted into the OPEN list
+
+
+
+OPEN list:
+Node index	f
+54		0.508038
+23		0.508306
+114		0.508885
+78		0.510277
+65		0.510379
+66		0.511248
+626905		0.511394
+79		0.512671
+142640		0.580222
+626902		0.605336
+2899397		0.629945
+
+Expanding node: 54 (id 8773106, nsucc 2)
+	Exploring successor: 55 (id 8773107)
+	successor not in OPEN nor CLOSE list
+	successor is inserted into the OPEN list
+
+	Exploring successor: 53 (id 8773105)
+	successor in CLOSE list
+
+
+
+OPEN list:
+Node index	f
+55		0.508038
+23		0.508306
+114		0.508885
+78		0.510277
+65		0.510379
+66		0.511248
+626905		0.511394
+79		0.512671
+142640		0.580222
+626902		0.605336
+2899397		0.629945
+
+Expanding node: 55 (id 8773107, nsucc 2)
+	Exploring successor: 56 (id 8773108)
+	successor not in OPEN nor CLOSE list
+	successor is inserted into the OPEN list
+
+	Exploring successor: 54 (id 8773106)
+	successor in CLOSE list
+
+
+
+OPEN list:
+Node index	f
+23		0.508306
+56		0.508545
+114		0.508885
+78		0.510277
+65		0.510379
+66		0.511248
+626905		0.511394
+79		0.512671
+142640		0.580222
+626902		0.605336
+2899397		0.629945
+
+Expanding node: 23 (id 8670518, nsucc 2)
+	Exploring successor: 22 (id 8670517)
+	successor in CLOSE list
+
+	Exploring successor: 24 (id 8670519)
+	successor not in OPEN nor CLOSE list
+	successor is inserted into the OPEN list
+
+
+
+OPEN list:
+Node index	f
+56		0.508545
+114		0.508885
+78		0.510277
+65		0.510379
+66		0.511248
+626905		0.511394
+24		0.512659
+79		0.512671
+142640		0.580222
+626902		0.605336
+2899397		0.629945
+
+Expanding node: 56 (id 8773108, nsucc 2)
+	Exploring successor: 57 (id 8773109)
+	successor not in OPEN nor CLOSE list
+	successor is inserted into the OPEN list
+
+	Exploring successor: 55 (id 8773107)
+	successor in CLOSE list
+
+
+
+OPEN list:
+Node index	f
+114		0.508885
+78		0.510277
+65		0.510379
+57		0.511133
+66		0.511248
+626905		0.511394
+24		0.512659
+79		0.512671
+142640		0.580222
+626902		0.605336
+2899397		0.629945
+
+Expanding node: 114 (id 8773174, nsucc 2)
+	Exploring successor: 113 (id 8773173)
+	successor in CLOSE list
+
+	Exploring successor: 115 (id 8773175)
+	successor not in OPEN nor CLOSE list
+	successor is inserted into the OPEN list
+
+
+
+OPEN list:
+Node index	f
+78		0.510277
+65		0.510379
+57		0.511133
+66		0.511248
+626905		0.511394
+24		0.512659
+79		0.512671
+115		0.542288
+142640		0.580222
+626902		0.605336
+2899397		0.629945
+
+Expanding node: 78 (id 8773130, nsucc 2)
+	Exploring successor: 67 (id 8773119)
+	successor in CLOSE list
+
+	Exploring successor: 79 (id 8773131)
+	successor in OPEN list
+	successor stays in OPEN list
+
+
+
+OPEN list:
+Node index	f
+65		0.510379
+57		0.511133
+66		0.511248
+626905		0.511394
+24		0.512659
+79		0.512671
+115		0.542288
+142640		0.580222
+626902		0.605336
+2899397		0.629945
+
+Expanding node: 65 (id 8773117, nsucc 2)
+	Exploring successor: 64 (id 8773116)
+	successor in CLOSE list
+
+	Exploring successor: 66 (id 8773118)
+	successor in OPEN list
+	successor stays in OPEN list
+
+
+
+OPEN list:
+Node index	f
+57		0.511133
+66		0.511248
+626905		0.511394
+24		0.512659
+79		0.512671
+115		0.542288
+142640		0.580222
+626902		0.605336
+2899397		0.629945
+
+Expanding node: 57 (id 8773109, nsucc 2)
+	Exploring successor: 58 (id 8773110)
+	successor not in OPEN nor CLOSE list
+	successor is inserted into the OPEN list
+
+	Exploring successor: 56 (id 8773108)
+	successor in CLOSE list
+
+
+
+OPEN list:
+Node index	f
+66		0.511248
+626905		0.511394
+24		0.512659
+79		0.512671
+58		0.517873
+115		0.542288
+142640		0.580222
+626902		0.605336
+2899397		0.629945
+
+Expanding node: 66 (id 8773118, nsucc 2)
+	Exploring successor: 65 (id 8773117)
+	successor in CLOSE list
+
+	Exploring successor: 67 (id 8773119)
+	successor in CLOSE list
+
+
+
+OPEN list:
+Node index	f
+626905		0.511394
+24		0.512659
+79		0.512671
+58		0.517873
+115		0.542288
+142640		0.580222
+626902		0.605336
+2899397		0.629945
+
+Expanding node: 626905 (id 628213223, nsucc 2)
+	Exploring successor: 72 (id 8773124)
+	successor in CLOSE list
+
+	Exploring successor: 676155 (id 689091642)
+	successor not in OPEN nor CLOSE list
+	successor is inserted into the OPEN list
+
+
+
+OPEN list:
+Node index	f
+24		0.512659
+79		0.512671
+58		0.517873
+676155		0.529205
+115		0.542288
+142640		0.580222
+626902		0.605336
+2899397		0.629945
+
+Expanding node: 24 (id 8670519, nsucc 2)
+	Exploring successor: 23 (id 8670518)
+	successor in CLOSE list
+
+	Exploring successor: 25 (id 8670520)
+	successor not in OPEN nor CLOSE list
+	successor is inserted into the OPEN list
+
+
+
+OPEN list:
+Node index	f
+79		0.512671
+25		0.514350
+58		0.517873
+676155		0.529205
+115		0.542288
+142640		0.580222
+626902		0.605336
+2899397		0.629945
+
+Expanding node: 79 (id 8773131, nsucc 2)
+	Exploring successor: 78 (id 8773130)
+	successor in CLOSE list
+
+	Exploring successor: 80 (id 8773132)
+	successor in CLOSE list
+
+
+
+OPEN list:
+Node index	f
+25		0.514350
+58		0.517873
+676155		0.529205
+115		0.542288
+142640		0.580222
+626902		0.605336
+2899397		0.629945
+
+Expanding node: 25 (id 8670520, nsucc 2)
+	Exploring successor: 24 (id 8670519)
+	successor in CLOSE list
+
+	Exploring successor: 26 (id 8670521)
+	successor not in OPEN nor CLOSE list
+	successor is inserted into the OPEN list
+
+
+
+OPEN list:
+Node index	f
+26		0.514733
+58		0.517873
+676155		0.529205
+115		0.542288
+142640		0.580222
+626902		0.605336
+2899397		0.629945
+
+Expanding node: 26 (id 8670521, nsucc 2)
+	Exploring successor: 25 (id 8670520)
+	successor in CLOSE list
+
+	Exploring successor: 27 (id 8670523)
+	successor not in OPEN nor CLOSE list
+	successor is inserted into the OPEN list
+
+
+
+OPEN list:
+Node index	f
+27		0.516153
+58		0.517873
+676155		0.529205
+115		0.542288
+142640		0.580222
+626902		0.605336
+2899397		0.629945
+
+Expanding node: 27 (id 8670523, nsucc 2)
+	Exploring successor: 26 (id 8670521)
+	successor in CLOSE list
+
+	Exploring successor: 28 (id 8670525)
+	successor not in OPEN nor CLOSE list
+	successor is inserted into the OPEN list
+
+
+
+OPEN list:
+Node index	f
+58		0.517873
+28		0.526670
+676155		0.529205
+115		0.542288
+142640		0.580222
+626902		0.605336
+2899397		0.629945
+
+Expanding node: 58 (id 8773110, nsucc 2)
+	Exploring successor: 59 (id 8773111)
+	successor not in OPEN nor CLOSE list
+	successor is inserted into the OPEN list
+
+	Exploring successor: 57 (id 8773109)
+	successor in CLOSE list
+
+
+
+OPEN list:
+Node index	f
+59		0.523992
+28		0.526670
+676155		0.529205
+115		0.542288
+142640		0.580222
+626902		0.605336
+2899397		0.629945
+
+Expanding node: 59 (id 8773111, nsucc 2)
+	Exploring successor: 60 (id 8773112)
+	successor not in OPEN nor CLOSE list
+	successor is inserted into the OPEN list
+
+	Exploring successor: 58 (id 8773110)
+	successor in CLOSE list
+
+
+
+OPEN list:
+Node index	f
+28		0.526670
+60		0.527311
+676155		0.529205
+115		0.542288
+142640		0.580222
+626902		0.605336
+2899397		0.629945
+
+Expanding node: 28 (id 8670525, nsucc 2)
+	Exploring successor: 27 (id 8670523)
+	successor in CLOSE list
+
+	Exploring successor: 29 (id 8670526)
+	successor not in OPEN nor CLOSE list
+	successor is inserted into the OPEN list
+
+
+
+OPEN list:
+Node index	f
+60		0.527311
+676155		0.529205
+115		0.542288
+29		0.552296
+142640		0.580222
+626902		0.605336
+2899397		0.629945
+
+Expanding node: 60 (id 8773112, nsucc 2)
+	Exploring successor: 61 (id 8773113)
+	successor not in OPEN nor CLOSE list
+	successor is inserted into the OPEN list
+
+	Exploring successor: 59 (id 8773111)
+	successor in CLOSE list
+
+
+
+OPEN list:
+Node index	f
+676155		0.529205
+61		0.530034
+115		0.542288
+29		0.552296
+142640		0.580222
+626902		0.605336
+2899397		0.629945
+
+Expanding node: 676155 (id 689091642, nsucc 3)
+	Exploring successor: 626905 (id 628213223)
+	successor in CLOSE list
+
+	Exploring successor: 626906 (id 628213226)
+	successor not in OPEN nor CLOSE list
+	successor is inserted into the OPEN list
+
+	Exploring successor: 676156 (id 689091643)
+	successor not in OPEN nor CLOSE list
+	successor is inserted into the OPEN list
+
+
+
+OPEN list:
+Node index	f
+676156		0.529278
+61		0.530034
+115		0.542288
+626906		0.547102
+29		0.552296
+142640		0.580222
+626902		0.605336
+2899397		0.629945
+
+Expanding node: 676156 (id 689091643, nsucc 2)
+	Exploring successor: 676155 (id 689091642)
+	successor in CLOSE list
+
+	Exploring successor: 676157 (id 689091644)
+	successor not in OPEN nor CLOSE list
+	successor is inserted into the OPEN list
+
+
+
+OPEN list:
+Node index	f
+676157		0.529343
+61		0.530034
+115		0.542288
+626906		0.547102
+29		0.552296
+142640		0.580222
+626902		0.605336
+2899397		0.629945
+
+Expanding node: 676157 (id 689091644, nsucc 2)
+	Exploring successor: 676156 (id 689091643)
+	successor in CLOSE list
+
+	Exploring successor: 676158 (id 689091645)
+	successor not in OPEN nor CLOSE list
+	successor is inserted into the OPEN list
+
+
+
+OPEN list:
+Node index	f
+61		0.530034
+676158		0.530961
+115		0.542288
+626906		0.547102
+29		0.552296
+142640		0.580222
+626902		0.605336
+2899397		0.629945
+
+Expanding node: 61 (id 8773113, nsucc 2)
+	Exploring successor: 62 (id 8773114)
+	successor not in OPEN nor CLOSE list
+	successor is inserted into the OPEN list
+
+	Exploring successor: 60 (id 8773112)
+	successor in CLOSE list
+
+
+
+OPEN list:
+Node index	f
+676158		0.530961
+62		0.532796
+115		0.542288
+626906		0.547102
+29		0.552296
+142640		0.580222
+626902		0.605336
+2899397		0.629945
+
+Expanding node: 676158 (id 689091645, nsucc 2)
+	Exploring successor: 676157 (id 689091644)
+	successor in CLOSE list
+
+	Exploring successor: 676159 (id 689091646)
+	successor not in OPEN nor CLOSE list
+	successor is inserted into the OPEN list
+
+
+
+OPEN list:
+Node index	f
+62		0.532796
+115		0.542288
+676159		0.545967
+626906		0.547102
+29		0.552296
+142640		0.580222
+626902		0.605336
+2899397		0.629945
+
+Expanding node: 62 (id 8773114, nsucc 2)
+	Exploring successor: 63 (id 8773115)
+	successor not in OPEN nor CLOSE list
+	successor is inserted into the OPEN list
+
+	Exploring successor: 61 (id 8773113)
+	successor in CLOSE list
+
+
+
+OPEN list:
+Node index	f
+63		0.534023
+115		0.542288
+676159		0.545967
+626906		0.547102
+29		0.552296
+142640		0.580222
+626902		0.605336
+2899397		0.629945
+
+Expanding node: 63 (id 8773115, nsucc 2)
+	Exploring successor: 38 (id 8670538)
+	successor not in OPEN nor CLOSE list
+	successor is inserted into the OPEN list
+
+	Exploring successor: 62 (id 8773114)
+	successor in CLOSE list
+
+
+
+OPEN list:
+Node index	f
+38		0.534093
+115		0.542288
+676159		0.545967
+626906		0.547102
+29		0.552296
+142640		0.580222
+626902		0.605336
+2899397		0.629945
+
+Expanding node: 38 (id 8670538, nsucc 2)
+	Exploring successor: 37 (id 8670537)
+	successor not in OPEN nor CLOSE list
+	successor is inserted into the OPEN list
+
+	Exploring successor: 63 (id 8773115)
+	successor in CLOSE list
+
+
+
+OPEN list:
+Node index	f
+37		0.534338
+115		0.542288
+676159		0.545967
+626906		0.547102
+29		0.552296
+142640		0.580222
+626902		0.605336
+2899397		0.629945
+
+Expanding node: 37 (id 8670537, nsucc 2)
+	Exploring successor: 36 (id 8670536)
+	successor not in OPEN nor CLOSE list
+	successor is inserted into the OPEN list
+
+	Exploring successor: 38 (id 8670538)
+	successor in CLOSE list
+
+
+
+OPEN list:
+Node index	f
+36		0.534338
+115		0.542288
+676159		0.545967
+626906		0.547102
+29		0.552296
+142640		0.580222
+626902		0.605336
+2899397		0.629945
+
+Expanding node: 36 (id 8670536, nsucc 2)
+A* algorithm has reached node with ID 8670536.The optimal distance has been found to be: 0.5343378 km
