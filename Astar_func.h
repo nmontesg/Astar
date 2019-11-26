@@ -35,40 +35,28 @@ void AStar (node* nodes, unsigned long source, unsigned long dest, unsigned long
     double successor_current_cost;              // cost of successor (g) if we were to reach it from the current node
     double w;                                   // distance (in straight line) from current node to successor
     while (OPEN != NULL) {
-        print_OPEN(OPEN);
         cur_index = OPEN->index;
-        /*debugging*/printf("Expanding node: %lu (id %lu, nsucc %d)\n", cur_index, (nodes+cur_index)->id, (nodes+cur_index)->nsucc);
         if (cur_index == dest_index) {                                                  // we have reached destination -> break
             printf("A* algorithm has reached node with ID %lu.", (nodes + cur_index)->id);
             break;
         }
         for (succ_count = 0; succ_count < (nodes + cur_index)->nsucc; succ_count++) {   // generate successors
             succ_index = ((nodes + cur_index)->successors)[succ_count];                 // find index of generated successor
-            /*debugging*/printf("\tExploring successor: %lu (id %lu)\n", succ_index, (nodes+succ_index)->id);
             w = haversine( *(nodes + cur_index), *(nodes + succ_index) );               // weight of edge from current node to successor
             successor_current_cost = (progress + cur_index)->g + w;                     // successor cost if we were to reach successor from the current node
         /* successor is in the OPEN list */
-            if ( (progress + succ_index)->whq == 1 ) {   
-                /*debugging*/printf("\tsuccessor in OPEN list\n");
-                if ( (progress + succ_index)->g <= successor_current_cost ) {           // successor cost is lower than if reached from the current node: go to next successor
-                    /*debugging*/printf("\tsuccessor stays in OPEN list\n\n");
-                    continue;}   // successor lower g than if current node was its parent: go to next successor
-                else {
-                    /*debugging*/printf("\tsuccessor is deleted from the OPEN list\n");
-                    delete_from_OPEN(succ_index, progress, OPEN);                       // delete successor from OPEN list, it will be re-inserted later with updated values
-                }
+            if ( (progress + succ_index)->whq == 1 ) {
+                if ( (progress + succ_index)->g <= successor_current_cost ) continue;   // successor cost is lower than if reached from the current node: go to next successor
+                else delete_from_OPEN(succ_index, progress, OPEN);                      // delete successor from OPEN list, it will be re-inserted later with updated values
             }
-        /* successor is in the CLOSE list: assuming we are using a consistent/monotone heuristic, nodes in the CLOSE list are never re-expanded. */
-            else if ( (progress + succ_index)->whq == 2 ) { /*debugging*/printf("\tsuccessor in CLOSE list\n\n"); continue; }
+        /* successor is in the CLOSE list: assuming we are using a monotone heuristic, nodes in the CLOSE list are never re-expanded. */
+            else if ( (progress + succ_index)->whq == 2 ) continue;
         /* successor not in OPEN nor CLOSE list */
-            else {                                                                      
-                /*debugging*/printf("\tsuccessor not in OPEN nor CLOSE list\n");
-                (progress + succ_index)->h = distance( *(nodes + succ_index), *(nodes + dest_index), dist_formula ); // compute h function of successor
-            }
+            else (progress + succ_index)->h = distance( *(nodes + succ_index), *(nodes + dest_index), dist_formula ); // compute h function of successor
+            
             (progress + succ_index)->g = successor_current_cost;                        // set successor cost as that coming from the current node
             (progress + succ_index)->parent = cur_index;                                // set successor parent as current node
             insert_to_OPEN(succ_index, progress, OPEN);                                 // insert successor from close to open list, maintaining ordering of f
-            /*debugging*/printf("\tsuccessor is inserted into the OPEN list\n\n");
         }
         /*debugging*/printf("\n");
         (progress + cur_index)->whq = 2;                                                // move current node from OPEN to CLOSE list

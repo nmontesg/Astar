@@ -19,7 +19,6 @@ int main (int argc, char *argv[]) {
         else if (*(line_buf) == 'n') nnodes += 1;            // find a line that corresponds to node: add 1 to nnodes
         else if (*(line_buf) == 'w') break;                  // exit loop when we get to ways                
     }
-    printf("%lu\n", nnodes);
     
 // Vector of nodes
     node *nodes;
