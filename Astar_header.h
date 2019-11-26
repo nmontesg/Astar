@@ -129,7 +129,7 @@ void update_successors(char* line, node* nodes, unsigned long nnodes, unsigned s
         free_n = counters[n];                         // find free spot for successor of node_n
         free_m = counters[m];                         // find free spot for successor of node_m 
         if (oneway == true) { ((nodes+n)->successors)[free_n] = m;  counters[n] += 1; } // write successor  m(n) in adjacency list of n(m)
-        if (oneway == false) {                                                          // and increase the counters to next position in adjacency list
+        else {                                                                          // and increase the counters to next position in adjacency list
             ((nodes+n)->successors)[free_n] = m;    counters[n] += 1;
             ((nodes+m)->successors)[free_m] = n;    counters[m] += 1;
         }
@@ -137,7 +137,6 @@ void update_successors(char* line, node* nodes, unsigned long nnodes, unsigned s
 }
 
 /*** insert_to_OPEN() takes in a node with a given index and inserts it in the OPEN list. It dynamically allocates memory for the node in the OPEN list and inserts it by preserving the ordering of the f value. It computes such f value by reading g and h values from the progress vector. ***/
-/* using theorem 11 in page 84, and assuming we are using a MONOTONE heuristic function, we can only consider cases where a successor node is inserted in the middle of the OPEN or at the end */
 void insert_to_OPEN (unsigned long index, AStarStatus* progress, open_node* OPEN) {
     (progress + index)->whq = 1;
     open_node* TEMP = OPEN;                                                                 // copy of the OPEN list
@@ -154,17 +153,21 @@ void insert_to_OPEN (unsigned long index, AStarStatus* progress, open_node* OPEN
     }
 }
 
-void delete_from_OPEN (unsigned long index, AStarStatus* progress, open_node* OPEN) {
+/*** delete_from_OPEN() deletes a node from the OPEN list, when we find that its cost is cheaper after reaching it from the current node. It will never delete the first node in the OPEN list thanks to the implications of using a monotone heuristic. ***/
+void delete_from_OPEN (unsigned long target, AStarStatus* progress, open_node* OPEN) {
     open_node* TEMP = OPEN;
-    while (TEMP->next != NULL) if ((TEMP->next)->index == index) break;
-    if ((TEMP->next == NULL) && (TEMP->index != index)) ExitError("node to be deleted from OPEN list was not found", 13);
-    //else if ((TEMP->next == NULL) && (TEMP->index == index))
-    TEMP->next = (TEMP->next)->next;
-    free(TEMP->next);
+    open_node* PREV = NULL;
+    while (TEMP != NULL && TEMP->index != target) {
+        PREV = TEMP;
+        TEMP = TEMP->next;
+    }
+    if (TEMP == NULL) ExitError("when searching for a node to be deleted from the OPEN list", 13);
+    PREV->next = TEMP->next;
+    free(TEMP);
 }
 
 
-/* Auxiliary function to keep track of the OPEN list. Used for debugging. Recommended to use only when computing the route between two very close-by nodes. */
+/*** Auxiliary function to keep track of the OPEN list. Used for debugging. Recommended to use only when testing the algorithm to compute the route between two close-by nodes. ***/
 void print_OPEN (open_node* OPEN) {
     open_node* TEMP = OPEN;
     printf("\nOPEN list:\nNode index\tf\n");

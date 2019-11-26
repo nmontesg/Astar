@@ -39,7 +39,7 @@ int main (int argc, char *argv[]) {
     }
         
     unsigned long source = 8670491;             // id of source
-    unsigned long dest = 8670494;               // id of dest
+    unsigned long dest = 8670521;               // id of dest
     AStar(nodes, source, dest, nnodes);
     
     

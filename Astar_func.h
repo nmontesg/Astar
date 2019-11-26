@@ -7,18 +7,18 @@ void AStar (node* nodes, unsigned long source, unsigned long dest, unsigned long
     printf("\tfrom: ID %lu\tlatitude %.7f\tlongitude %.7f\n", (nodes+source_index)->id, (nodes+source_index)->lat, (nodes+source_index)->lon);
     printf("\tto:   ID %lu\tlatitude %.7f\tlongitude %.7f\n", (nodes+dest_index)->id, (nodes+dest_index)->lat, (nodes+dest_index)->lon);
     
-// progress stores g, h and queue location for all nodes
+// progress stores g, h, index in nodes vector and queue location for all nodes
     AStarStatus* progress = NULL;
     if ((progress = (AStarStatus*) malloc(nnodes*sizeof(AStarStatus))) == NULL)
         ExitError("when allocating memory for the progress vector", 13);
     unsigned long i;
     for (i=0; i < nnodes; i++) {
-        (progress+i)->whq = 0;                                                      // all nodes start neither in OPEN nor CLOSED list
-        (progress+i)->g = INFINITY;                                                 // all nodes start with INF g function
+        (progress+i)->whq = 0;                                                                  // all nodes start neither in OPEN nor CLOSED list
+        (progress+i)->g = INFINITY;                                                             // all nodes start with INF g function
     }
-    (progress + source_index)->whq = 1;                                             // select source node
-    (progress + source_index)->g = 0;
-    (progress + source_index)->h = haversine( *(nodes + source_index), *(nodes + dest_index) );
+    (progress + source_index)->whq = 1;                                                         // put source node in the OPEN list
+    (progress + source_index)->g = 0;                                                           // g(source) = 0
+    (progress + source_index)->h = haversine( *(nodes + source_index), *(nodes + dest_index) ); // h(source) = heuristic distance to destination
 
 // OPEN list and auxiliary
     struct open_node* OPEN = NULL;                                                         
@@ -39,7 +39,7 @@ void AStar (node* nodes, unsigned long source, unsigned long dest, unsigned long
         cur_index = OPEN->index;
         /*debugging*/printf("Expanding node: %lu (id %lu, nsucc %d)\n", cur_index, (nodes+cur_index)->id, (nodes+cur_index)->nsucc);
         if (cur_index == dest_index) {                                                  // we have reached destination -> break
-            printf("A* algorithm has reached node with ID %lu. Loop will now be exited.\n", (nodes + cur_index)->id);
+            printf("A* algorithm has reached node with ID %lu.", (nodes + cur_index)->id);
             break;
         }
         for (succ_count = 0; succ_count < (nodes + cur_index)->nsucc; succ_count++) {   // generate successors
@@ -54,12 +54,13 @@ void AStar (node* nodes, unsigned long source, unsigned long dest, unsigned long
                     /*debugging*/printf("\tsuccessor stays in OPEN list\n\n");
                     continue;}   // successor lower g than if current node was its parent: go to next successor
                 else {
+                    /*debugging*/printf("\tsuccessor is deleted from the OPEN list\n");
                     delete_from_OPEN(succ_index, progress, OPEN);                       // delete successor from OPEN list, it will be re-inserted later with updated values
                 }
             }
-        /* successor is in the CLOSE list: assuming we are using a consistent/monotone heuristic, theorem 10 in page 83 impplies that once a node is expanded, the cost by which it was reached is the lowest possible. Therefore, nodes in the CLOSE list are never re-expanded, i.e. never taken back to the OPEN list. */
-            else if ( (progress + succ_index)->whq == 2 ) continue;
-        // successor not in OPEN nor CLOSE list
+        /* successor is in the CLOSE list: assuming we are using a consistent/monotone heuristic, nodes in the CLOSE list are never re-expanded. */
+            else if ( (progress + succ_index)->whq == 2 ) { /*debugging*/printf("\tsuccessor in CLOSE list\n\n"); continue; }
+        /* successor not in OPEN nor CLOSE list */
             else {                                                                      
                 /*debugging*/printf("\tsuccessor not in OPEN nor CLOSE list\n");
                 (progress + succ_index)->h = haversine( *(nodes + succ_index), *(nodes + dest_index) ); // compute h function of successor
@@ -67,7 +68,9 @@ void AStar (node* nodes, unsigned long source, unsigned long dest, unsigned long
             (progress + succ_index)->g = successor_current_cost;                        // set successor cost as that coming from the current node
             (progress + succ_index)->parent = cur_index;                                // set successor parent as current node
             insert_to_OPEN(succ_index, progress, OPEN);                                 // insert successor from close to open list, maintaining ordering of f
+            /*debugging*/printf("\tsuccessor is inserted into the OPEN list\n\n");
         }
+        /*debugging*/printf("\n");
         (progress + cur_index)->whq = 2;                                                // move current node from OPEN to CLOSE list
     // select next element in OPEN list and free memory allocated for the current node 
         AUX = OPEN->next;   free(OPEN);     OPEN = AUX;                                                                                                                      
@@ -79,12 +82,7 @@ void AStar (node* nodes, unsigned long source, unsigned long dest, unsigned long
         AUX = OPEN->next;   free(OPEN);     OPEN = AUX;
     }
     
-    printf("The optimal distance has been found to be: %f km\n", (progress + dest_index)->g);
+    printf("The optimal distance has been found to be: %.7f km\n", (progress + dest_index)->g);
     
     free(progress);
 }
-
-
-
-
-
