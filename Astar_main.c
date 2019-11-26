@@ -1,4 +1,5 @@
 #include "Astar_header.h"
+#include "heuristics.h"
 #include "Astar_func.h"
 
 int main (int argc, char *argv[]) {
@@ -31,18 +32,16 @@ int main (int argc, char *argv[]) {
     fclose(fin);
     
 // Setting pointers to successors
-    int i;
+    unsigned long i;
     for(i = 0; i < nnodes; i++) if(nodes[i].nsucc) {
         nodes[i].successors = allsuccessors;
         allsuccessors += nodes[i].nsucc;
     }
-    
-    unsigned long source = 8670492;   // id of nodes source and dest
-    unsigned long dest   = 1543294778;
-    unsigned long dest_index = (unsigned long)binary_search(nodes, dest, 0, nnodes-1);
-    printf("%lu\n", (nodes+dest_index)->id);
-    
+        
+    unsigned long source = 8670491;             // id of source
+    unsigned long dest = 8670494;               // id of dest
     AStar(nodes, source, dest, nnodes);
+    
     
 /*** Free all allocated memory ***/
     free(nodes);

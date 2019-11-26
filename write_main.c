@@ -5,9 +5,21 @@ int main (int argc, char *argv[]) {
 // Open csv file and select what map we are working with
     FILE *fmap;
     if ((fmap = fopen(argv[1], "r")) == NULL) ExitError("when opening the csv file", 2);
-    unsigned long nnodes;
-    if (*(argv[1]) == 's') nnodes = 23895681UL; // nodes in Spain map
-    if (*(argv[1]) == 'c') nnodes = 3474545UL;  // nodes in Catalonia map
+    
+// Variables related to getline()
+    char* line_buf = NULL;      // line that is being read from file
+    size_t line_buf_size = 0;   // size of allocated memory for line
+    ssize_t line_size = 0;      // size of line in number of characters
+    
+/*** Oth READ OF .csv FILE: Count the number of nodes ***/
+    unsigned long nnodes = 0UL;
+    while (line_size >= 0) {
+        line_size = getline(&line_buf, &line_buf_size, fmap);// read the line
+        if (*(line_buf) == '#') continue;                    // skip comment lines
+        else if (*(line_buf) == 'n') nnodes += 1;            // find a line that corresponds to node: add 1 to nnodes
+        else if (*(line_buf) == 'w') break;                  // exit loop when we get to ways                
+    }
+    printf("%lu\n", nnodes);
     
 // Vector of nodes
     node *nodes;
@@ -17,26 +29,22 @@ int main (int argc, char *argv[]) {
 // Vector of number of successors of each node. calloc() initializes allocated memory to 0
     unsigned short* nsuccdim = NULL;
     if ((nsuccdim = (unsigned short*) calloc(nnodes, sizeof(unsigned short))) == NULL) ExitError("when allocating memory for nsuccdim", 5);
-    
-// Variables related to getline()
-    char* line_buf = NULL;      // line that is being read from file
-    size_t line_buf_size = 0;   // size of allocated memory for line
-    ssize_t line_size = 0;      // size of line in number of characters
-    
+        
 /*** FIRST READ OF .csv FILE: Lines that correspond to nodes get info on node id, name, lat and lon. Lines that correspond to ways are used to compute the elements of nsuccdim ***/
+    fseek(fmap, 0, SEEK_SET);                                // rewind to the begining of file for second round of reading
     while (line_size >= 0) {
         line_size = getline(&line_buf, &line_buf_size, fmap);// read the line
         if (*(line_buf) == '#') continue;                    // skip comment lines
-        if (*(line_buf) == 'n') {                            // process a line that corresponds to a node
+        else if (*(line_buf) == 'n') {                       // process a line that corresponds to a node
             process_node(nodes, line_buf, i);                // and move to next position in nodes vector
             i += 1;
             continue;
         }
-        if (*(line_buf) == 'w') {                             // process a line that corresponds to a way
+        else if (*(line_buf) == 'w') {                        // process a line that corresponds to a way
             update_nsuccs(nsuccdim, line_buf, nodes, nnodes); // update nsuccdim from info of the way line
             continue;
         }
-        if (*(line_buf) == 'r') break;                        // exit loop when we get to relations                       
+        else if (*(line_buf) == 'r') break;                   // exit loop when we get to relations                       
     }
     
 // Allocate memory for the successors of every node.
@@ -92,7 +100,7 @@ int main (int argc, char *argv[]) {
     }
     
     fclose(fin);            // close .bin file
-               
+                  
 /*** Free all allocated memory ***/
     for (i = 0; i < nnodes; i++) { free((nodes+i)->name); free((nodes+i)->successors); }
     free(nodes);

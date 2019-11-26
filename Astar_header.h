@@ -1,3 +1,4 @@
+/*** LIBRARIES ***/
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -135,16 +136,7 @@ void update_successors(char* line, node* nodes, unsigned long nnodes, unsigned s
     }
 }
 
-/*** Heuristic functions: http://movable-type.co.uk/scripts/latlong.html ***/
-double haversine (node u, node v) {
-    double diff_lat = (u.lat - v.lat) * pi / 180.f;
-    double diff_lon = (u.lon - v.lon) * pi / 180.f;
-    double a = pow(sin(diff_lat/2), 2) + cos(u.lat * pi / 180.f) * cos(v.lat * pi / 180.f) * pow(sin(diff_lon/2), 2);
-    double c = 2 * atan2(sqrt(a), sqrt(1-a));
-    double d = R * c;
-    return d;
-}
-
+/*** insert_to_OPEN() takes in a node with a given index and inserts it in the OPEN list. It dynamically allocates memory for the node in the OPEN list and inserts it by preserving the ordering of the f value. It computes such f value by reading g and h values from the progress vector. ***/
 /* using theorem 11 in page 84, and assuming we are using a MONOTONE heuristic function, we can only consider cases where a successor node is inserted in the middle of the OPEN or at the end */
 void insert_to_OPEN (unsigned long index, AStarStatus* progress, open_node* OPEN) {
     (progress + index)->whq = 1;
@@ -162,7 +154,17 @@ void insert_to_OPEN (unsigned long index, AStarStatus* progress, open_node* OPEN
     }
 }
 
+void delete_from_OPEN (unsigned long index, AStarStatus* progress, open_node* OPEN) {
+    open_node* TEMP = OPEN;
+    while (TEMP->next != NULL) if ((TEMP->next)->index == index) break;
+    if ((TEMP->next == NULL) && (TEMP->index != index)) ExitError("node to be deleted from OPEN list was not found", 13);
+    //else if ((TEMP->next == NULL) && (TEMP->index == index))
+    TEMP->next = (TEMP->next)->next;
+    free(TEMP->next);
+}
 
+
+/* Auxiliary function to keep track of the OPEN list. Used for debugging. Recommended to use only when computing the route between two very close-by nodes. */
 void print_OPEN (open_node* OPEN) {
     open_node* TEMP = OPEN;
     printf("\nOPEN list:\nNode index\tf\n");
