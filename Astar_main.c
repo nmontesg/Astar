@@ -41,16 +41,16 @@ int main (int argc, char *argv[]) {
 // User chooses IDs of source and destination nodes:
     unsigned long source = 8670491;             // id of source
     unsigned long dest = 8773802;               // id of dest
-    /*printf("Choose IDs of starting and destination nodes:\n");
+    printf("Choose IDs of starting and destination nodes:\n");
 // suggestions if we are working with map of Spain
     if (*argv[1] == 's') {            
         printf("\tSanta Maria del Mar, Barcelona : 240949599\n");
-        printf("\tGiralda, Sevilla : 195977239\n");
+        printf("\tGiralda, Sevilla : 195977239\n\n");
     }
 // suggestions if we are working with map of Catalonia
     if (*argv[1] == 'c') {            
         printf("\tSomewhere in Girona : 771979683\n");
-        printf("\tSomewhere in Lleida : 429854583\n");
+        printf("\tSomewhere in Lleida : 429854583\n\n");
     }
 // input ID of starting node
     printf("ID of starting node: ");  
@@ -66,7 +66,7 @@ int main (int argc, char *argv[]) {
         printf("Invalid choice of destination node. Please enter destination node ID again: ");
         if (scanf("%lu", &dest) != 1) ExitError("when reading the ID of destination node", 18);
     }
-    printf("\n");*/
+    printf("\n");
     
 // User chooses distance formula
     unsigned short dist_func;
@@ -81,7 +81,7 @@ int main (int argc, char *argv[]) {
     }
     printf("\n");
     
-    AStar(nodes, source, dest, nnodes, dist_func);
+    AStar(nodes, source, dest, nnodes, dist_func, argv[1]);
     
 /*** Free all allocated memory ***/
     free(nodes);

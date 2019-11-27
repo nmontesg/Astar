@@ -1,4 +1,4 @@
-void AStar (node* nodes, unsigned long source, unsigned long dest, unsigned long nnodes, unsigned short dist_formula) {
+void AStar (node* nodes, unsigned long source, unsigned long dest, unsigned long nnodes, unsigned short dist_formula, char* name) {
     
     unsigned long source_index = (unsigned long)binary_search(nodes, source, 0, nnodes-1);           // find index of source in nodes vector
     unsigned long dest_index   = (unsigned long)binary_search(nodes, dest, 0, nnodes-1);             // find index of destination in nodes vector
@@ -93,31 +93,12 @@ void AStar (node* nodes, unsigned long source, unsigned long dest, unsigned long
     }
     if (cur_index == source_index) *path = cur_index;
     
-    /*debugging: print path*/
-    i = 0;
-    printf("%lu\n\n", source_index);
-    for (i=0; i<path_len; i++) {
-        printf("%lu\n", path[i]);
-    }
-    printf("\n%lu\n\n", dest_index);
-    /*int j = 0;
-    for (i=0; i<path_len; i++) {
-        printf("%lu %d --> ", path[i], (nodes+path[i])->nsucc);
-        for (j=0; j < (nodes+path[i])->nsucc; j++) printf("%lu\t", ((nodes+path[i])->successors)[j]);
-        printf("\n");
-    }*/
-    
-    /*unsigned long* current = path;
-    unsigned long* next = current + 1;
-    while (next != NULL) {
-        printf("%lu %lu\n", *current, *next);
-        current = next;
-        next = current + 1;
-    }*/
-
 // check that the path makes sense: if node v follows node u, then u is in the adjacency list of v.
     bool check = is_path_correct(path, nodes);
-    if (check) ExitError("the computed path is not correct", 13);
+    if (!check) ExitError("the computed path is not correct", 13);
+    
+// write results to a csv file
+    path_to_file(nodes, path, path_len, progress, name, dist_formula);
     
     free(path);
     free(progress);

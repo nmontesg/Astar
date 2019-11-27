@@ -182,6 +182,33 @@ bool is_path_correct (unsigned long* path, node* nodes) {
     return true;
 }
 
+/*** path_to_file() creates an output file with the sequence of nodes that make up the path. For each node in the path, the following information is written: ID, lat, lon, g, h, f and name. ***/
+void path_to_file(node* nodes, unsigned long* path, unsigned long length, AStarStatus* info, char* name, unsigned short dist_formula) {
+// modify name to the following format (map)_(id of source)_(id of destination).csv. Map is either spain or cataluna
+    char ending[257] = "_";
+    char buffer[11];
+    sprintf(buffer, "%lu", (nodes+path[0])->id);
+    strcat(ending, buffer);
+    strcat(ending, "_");
+    sprintf(buffer, "%lu", (nodes+path[length-1])->id);
+    strcat(ending, buffer);
+    if (dist_formula == 1) strcat(ending, "_haversine");
+    else if (dist_formula == 2) strcat(ending, "_cosines");
+    else if (dist_formula == 3) strcat(ending, "_equiraprox");
+    else ExitError("invalid choice of distance function", 5);      
+    strcat(ending, ".csv");
+    strcpy(strrchr(name, '.'), ending);
+    FILE *fout;
+    if ((fout = fopen (name, "w+")) == NULL) ExitError("the output data file cannot be created", 13);   
+    fprintf(fout, "step;id;lat;lon;g;h;f;name\n");
+    unsigned long i;
+    for (i = 0; i < length; i++) {
+        fprintf(fout, "%lu;%lu;%.7f;%.7f;%.7f;%.7f;%.7f\n", i, (nodes+path[i])->id, (nodes+path[i])->lat, (nodes+path[i])->lon, (info+path[i])->g, (info+path[i])->h, (info+path[i])->g + (info+path[i])->h);
+    }
+    
+    fclose(fout);
+}
+
 /*** Auxiliary function to keep track of the OPEN list. Used for debugging. Recommended to use only when testing the algorithm to compute the route between two close-by nodes. ***/
 void print_OPEN (open_node* OPEN) {
     open_node* TEMP = OPEN;
