@@ -39,9 +39,9 @@ int main (int argc, char *argv[]) {
     }
 
 // User chooses IDs of source and destination nodes:
-    unsigned long source;             // id of source
-    unsigned long dest;               // id of dest
-    printf("Choose IDs of starting and destination nodes:\n");
+    unsigned long source = 8670491;             // id of source
+    unsigned long dest = 8773802;               // id of dest
+    /*printf("Choose IDs of starting and destination nodes:\n");
 // suggestions if we are working with map of Spain
     if (*argv[1] == 's') {            
         printf("\tSanta Maria del Mar, Barcelona : 240949599\n");
@@ -56,17 +56,17 @@ int main (int argc, char *argv[]) {
     printf("ID of starting node: ");  
     if (scanf("%lu", &source) != 1) ExitError("when reading the id of starting node", 18);
     while ( binary_search(nodes, source, 0, nnodes-1) == -1 ) {
-        printf("Invalid choice of starting node. Please enter starting node id again: ");
-        if (scanf("%lu", &source) != 1) ExitError("when reading the id of starting node", 18);
+        printf("Invalid choice of starting node. Please enter starting node ID again: ");
+        if (scanf("%lu", &source) != 1) ExitError("when reading the ID of starting node", 18);
     }
 // input ID of destination node
     printf("ID of destination node: ");
     if (scanf("%lu", &dest) != 1) ExitError("when reading the id of destination node", 18);
     while ( binary_search(nodes, dest, 0, nnodes-1) == -1 ) {
-        printf("Invalid choice of destination node. Please enter destination node id again: ");
-        if (scanf("%lu", &dest) != 1) ExitError("when reading the id of destination node", 18);
+        printf("Invalid choice of destination node. Please enter destination node ID again: ");
+        if (scanf("%lu", &dest) != 1) ExitError("when reading the ID of destination node", 18);
     }
-    printf("\n");
+    printf("\n");*/
     
 // User chooses distance formula
     unsigned short dist_func;

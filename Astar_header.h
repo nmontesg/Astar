@@ -166,6 +166,21 @@ void delete_from_OPEN (unsigned long target, AStarStatus* progress, open_node* O
     free(TEMP);
 }
 
+/*** is_path_correct() checks that a computed path makes sense. Given a sequence of unsigned long indices, check that for all i, element (i+1) is a successor of element i. ***/
+bool is_path_correct (unsigned long* path, node* nodes) {
+    unsigned long current;
+    unsigned long next;
+    size_t len = sizeof(path) / sizeof(unsigned long);
+    unsigned long i;
+    unsigned short j;
+    for (i = 0; i < len-1; i++) {
+        current = path[i];
+        next = path[i+1];
+        for (j = 0; j < (nodes+current)->nsucc; j++) if ( ((nodes+current)->successors)[j] == next ) break;
+        if (j == (nodes+current)->nsucc) return false;
+    }
+    return true;
+}
 
 /*** Auxiliary function to keep track of the OPEN list. Used for debugging. Recommended to use only when testing the algorithm to compute the route between two close-by nodes. ***/
 void print_OPEN (open_node* OPEN) {
