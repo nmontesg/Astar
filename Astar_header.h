@@ -218,10 +218,10 @@ void path_to_file(node* nodes, unsigned long* path, unsigned long length, AStarS
     strcpy(strrchr(name, '.'), ending);
     FILE *fout;
     if ((fout = fopen (name, "w+")) == NULL) ExitError("the output data file cannot be created", 13);   
-    fprintf(fout, "step;id;lat;lon;g;h;name\n");
+    fprintf(fout, "step|id|lat|lon|g|h|name\n");
     unsigned long i;
     for (i = 0; i < length; i++) {
-        fprintf(fout, "%lu;%lu;%.7f;%.7f;%.7f;%.7f;%s\n", i, nodes[path[i]].id, nodes[path[i]].lat, nodes[path[i]].lon, info[path[i]].g, info[path[i]].h, nodes[path[i]].name);
+        fprintf(fout, "%lu|%lu|%.7f|%.7f|%.7f|%.7f|%s\n", i, nodes[path[i]].id, nodes[path[i]].lat, nodes[path[i]].lon, info[path[i]].g, info[path[i]].h, nodes[path[i]].name);
     }
     
     fclose(fout);
