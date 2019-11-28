@@ -48,8 +48,8 @@ int main (int argc, char *argv[]) {
     
 // Allocate memory for the successors of every node.
     for (i = 0; i < nnodes; i++) {
-        (nodes+i)->nsucc = nsuccdim[i];
-        if(((nodes+i)->successors = (unsigned long*) malloc(nsuccdim[i]*sizeof(unsigned long))) == NULL) ExitError("when allocating memory for the nodes successors", 5);
+        nodes[i].nsucc = nsuccdim[i];
+        if((nodes[i].successors = (unsigned long*) malloc(nsuccdim[i]*sizeof(unsigned long))) == NULL) ExitError("when allocating memory for the nodes successors", 5);
     }
     
 // Allocate memory for successors index counter. Use calloc() to initialize all counters to 0.
@@ -74,9 +74,18 @@ int main (int argc, char *argv[]) {
     FILE *fin;
     char name[257];
     
-// Computing the total number of successors
+// Computing the total number of successors and total length of names
     unsigned long ntotnsucc = 0UL;
-    for(i = 0; i < nnodes; i++) ntotnsucc += nodes[i].nsucc;
+    unsigned long totnamelen = 0UL;
+    for(i = 0; i < nnodes; i++) {
+        ntotnsucc += nodes[i].nsucc;
+        totnamelen += nodes[i].namelen;
+    }
+    totnamelen += 1;
+    
+// Allocate memory for a string consisting that will contain all names concatenated
+    char* allnames;
+    if((allnames = (char*) malloc((totnamelen)*sizeof(char))) == NULL) ExitError("when allocating memory for allnames vector", 5);
     
 // Setting the name of the binary file
     strcpy(name, argv[1]); strcpy(strrchr(name, '.'), ".bin");
@@ -85,25 +94,34 @@ int main (int argc, char *argv[]) {
     
 // Global data --- header
     if( fwrite(&nnodes, sizeof(unsigned long), 1, fin) +
-        fwrite(&ntotnsucc, sizeof(unsigned long), 1, fin) != 2 )
+        fwrite(&ntotnsucc, sizeof(unsigned long), 1, fin) +
+        fwrite(&totnamelen, sizeof(unsigned long), 1, fin) != 3 )
             ExitError("when initializing the output binary data file", 32);
 
 // Writing all nodes
     if( fwrite(nodes, sizeof(node), nnodes, fin) != nnodes )
         ExitError("when writing nodes to the output binary data file", 32);
-    
-// Writing sucessors in blocks
-    for(i = 0; i < nnodes; i++) if(nodes[i].nsucc) {
-        if ( fwrite(nodes[i].successors, sizeof(unsigned long), nodes[i].nsucc, fin) != nodes[i].nsucc )
-            ExitError("when writing edges to the output binary data file", 32);
+       
+// Writing sucessors in blocks and making the allnames string
+    for(i = 0; i < nnodes; i++){
+        if(nodes[i].nsucc) {
+            if ( fwrite(nodes[i].successors, sizeof(unsigned long), nodes[i].nsucc, fin) != nodes[i].nsucc )
+                ExitError("when writing edges to the output binary data file", 32);
+        }
+        strcat(allnames, nodes[i].name);
     }
     
+// Writing all names
+    if ( fwrite(allnames, sizeof(char), totnamelen, fin) != totnamelen )
+            ExitError("when writing allnames to the output binary data file", 32);
+        
     fclose(fin);            // close .bin file
                   
 /*** Free all allocated memory ***/
-    for (i = 0; i < nnodes; i++) { free((nodes+i)->name); free((nodes+i)->successors); }
+    for (i = 0; i < nnodes; i++) { free(nodes[i].name); free(nodes[i].successors); }
     free(nodes);
     free(nsuccdim);
+    free(allnames);
     
     return 0;
 }

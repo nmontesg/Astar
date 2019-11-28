@@ -12,6 +12,7 @@
 /*** structure to represent a node ***/
 typedef struct {
     unsigned long id;           // Node identification
+    unsigned short namelen;     // Length of name in number of characters
     char* name;                 // Node name (missing for most nodes)
     double lat, lon;            // Node position
     unsigned short nsucc;       // Number of node successors; i. e. length of successors
@@ -47,29 +48,30 @@ void process_node(node* nodes, char* line, unsigned long i) {
     if (*field != 'n') return;                                               // exit if we are not processing a node line
     field = strsep(&line, "|");                                              // get second field (id)
     char* ptr = NULL;                                                        // value of this pointer is set by the strtoul() function
-    (nodes+i)->id = strtoul(field, &ptr, 10);
+    nodes[i].id = strtoul(field, &ptr, 10);
     field = strsep(&line, "|");                                              // get third field (name)
-    if (((nodes+i)->name = (char*) malloc(strlen(field) + 1)) == NULL) ExitError("when allocating memory for a node name", 5);
-    strcpy( (nodes+i)->name, field );
+    nodes[i].namelen = strlen(field);
+    if ((nodes[i].name = (char*) malloc(nodes[i].namelen + 1)) == NULL) ExitError("when allocating memory for a node name", 5);
+    strcpy( nodes[i].name, field );
     unsigned short count;
     for (count = 4; count < 11; count++) field = strsep(&line, "|");         // get 10th field (lat)
-    (nodes+i)->lat = atof(field);
+    nodes[i].lat = atof(field);
     field = strsep(&line, "|");                                              // get 11th field (lon)
-    (nodes+i)->lon = atof(field);
+    nodes[i].lon = atof(field);
 }
 
 /*** binary_search() returns the position of node with id in vector nodes. Boundary indices are specified, typically low = 0 and high = nnodes. If node with id is not in the nodes vector, function returns -1. ***/
 signed long binary_search(node* nodes, unsigned long id, unsigned long low, unsigned long high) {
-    if ( (nodes + low)->id == id ) return (signed long)low;
-    if ( (nodes + high)->id == id ) return (signed long)high;
+    if ( nodes[low].id == id ) return (signed long)low;
+    if ( nodes[high].id == id ) return (signed long)high;
     signed long index = (high + low)/2;
-    unsigned long guess = (nodes + index)->id;
+    unsigned long guess = nodes[index].id;
     while ( (high-low) > 1 ) {
         if (guess == id) { return index; }
         if (guess > id) { high = index; }
         if (guess < id) { low = index; }
         index = (high + low)/2;
-        guess = (nodes + index)->id;
+        guess = nodes[index].id;
     }
     return -1;  // return -1 if element is not in vector
 }
@@ -128,32 +130,53 @@ void update_successors(char* line, node* nodes, unsigned long nnodes, unsigned s
         if ( (n == -1) || (m == -1) ) continue;       // if any of the nodes is not in nodes vector -> skip
         free_n = counters[n];                         // find free spot for successor of node_n
         free_m = counters[m];                         // find free spot for successor of node_m 
-        if (oneway == true) { ((nodes+n)->successors)[free_n] = m;  counters[n] += 1; } // write successor  m(n) in adjacency list of n(m)
-        else {                                                                          // and increase the counters to next position in adjacency list
-            ((nodes+n)->successors)[free_n] = m;    counters[n] += 1;
-            ((nodes+m)->successors)[free_m] = n;    counters[m] += 1;
+        if (oneway == true) { (nodes[n].successors)[free_n] = m;  counters[n] += 1; } // write successor  m(n) in adjacency list of n(m)
+        else {                                                                        // and increase the counters to next position in adjacency list
+            (nodes[n].successors)[free_n] = m;    counters[n] += 1;
+            (nodes[m].successors)[free_m] = n;    counters[m] += 1;
         }
     }
 }
 
-/*** insert_to_OPEN() takes in a node with a given index and inserts it in the OPEN list. It dynamically allocates memory for the node in the OPEN list and inserts it by preserving the ordering of the f value. It computes such f value by reading g and h values from the progress vector. ***/
+/*** Haversine distance: great-circle distance between two points. ***/
+double haversine (node u, node v) {
+    double diff_lat = (u.lat - v.lat) * pi / 180.f;
+    double diff_lon = (u.lon - v.lon) * pi / 180.f;
+    double a = pow(sin(diff_lat/2), 2) + cos(u.lat * pi / 180.f) * cos(v.lat * pi / 180.f) * pow(sin(diff_lon/2), 2);
+    double c = 2 * atan2(sqrt(a), sqrt(1-a));
+    double d = R * c;
+    return d;
+}
+
+/*** Auxiliary function to keep track of the OPEN list. Used for debugging. Recommended to use only when testing the algorithm to compute the route between two close-by nodes. ***/
+void print_OPEN (open_node* OPEN) {
+    open_node* TEMP = OPEN;
+    printf("\nOPEN list:\nNode index\tf\n");
+    while (TEMP != NULL) {
+        printf("%lu\t\t%f\n", (TEMP)->index, TEMP->f);
+        TEMP = TEMP->next;
+    }
+    printf("\n");
+}
+
+/*** insert_to_OPEN() takes in a node with a given index and inserts it in the OPEN list. It dynamically allocates memory for the node in the OPEN list and inserts it by preserving the ordering of the f value. It computes such f value by reading g and h values from the progress vector. Tie break rule: a new node that is inserted and has the same f as a node already in the OPEN list. Then, the incoming node is inserted behind the node already in the OPEN list. ***/
 void insert_to_OPEN (unsigned long index, AStarStatus* progress, open_node* OPEN) {
     (progress + index)->whq = 1;
     open_node* TEMP = OPEN;                                                                 // copy of the OPEN list
     open_node* new_node = NULL;                                                             // new node in the OPEN list
     if ((new_node = (open_node*) malloc(sizeof(open_node))) == NULL) ExitError("when allocating memory for a new node in the OPEN list", 13);
     new_node->index = index;                                                                // index of new_node
-    new_node->f = (progress + index)->g + (progress + index)->h;                            // f function of new node
+    new_node->f = progress[index].g + progress[index].h;                                    // f function of new node
     new_node->next = NULL;                                                                  // for the moment new node is not allocated in the OPEN list
-    while ( (TEMP->next != NULL) && ((TEMP->next)->f < new_node->f ) ) TEMP = TEMP->next;   // find position in OPEN (TEMP) list to insert new_node
+    while ( (TEMP->next != NULL) && ((TEMP->next)->f <= new_node->f ) ) TEMP = TEMP->next;  // find position in OPEN (TEMP) list to insert new_node
     if (TEMP->next == NULL) TEMP->next = new_node;                                          // if new_node has to be allocated at the end of OPEN
-    else if ((TEMP->next)->f >= new_node->f) {                                              // if new_node has to be allocated in the middle of OPEN
+    else if ((TEMP->next)->f > new_node->f) {                                               // if new_node has to be allocated in the middle of OPEN
         new_node->next = TEMP->next;
         TEMP->next = new_node;
     }
 }
 
-/*** delete_from_OPEN() deletes a node from the OPEN list, when we find that its cost is cheaper after reaching it from the current node. It will never delete the first node in the OPEN list thanks to the implications of using a monotone heuristic. ***/
+/*** delete_from_OPEN() deletes a node from the OPEN list, when we find that its cost is cheaper after reaching it from the current node. It will never delete the first node in the OPEN list because the first node in OPEN is the node being currently expanded, which cannot be a successor of itself. ***/
 void delete_from_OPEN (unsigned long target, AStarStatus* progress, open_node* OPEN) {
     open_node* TEMP = OPEN;
     open_node* PREV = NULL;
@@ -161,7 +184,6 @@ void delete_from_OPEN (unsigned long target, AStarStatus* progress, open_node* O
         PREV = TEMP;
         TEMP = TEMP->next;
     }
-    if (TEMP == NULL) ExitError("when searching for a node to be deleted from the OPEN list", 13);
     PREV->next = TEMP->next;
     free(TEMP);
 }
@@ -176,57 +198,31 @@ bool is_path_correct (unsigned long* path, node* nodes) {
     for (i = 0; i < len-1; i++) {
         current = path[i];
         next = path[i+1];
-        for (j = 0; j < (nodes+current)->nsucc; j++) if ( ((nodes+current)->successors)[j] == next ) break;
-        if (j == (nodes+current)->nsucc) return false;
+        for (j = 0; j < nodes[current].nsucc; j++) if ( (nodes[current].successors)[j] == next ) break;
+        if (j == nodes[current].nsucc) return false;
     }
     return true;
 }
 
 /*** path_to_file() creates an output file with the sequence of nodes that make up the path. For each node in the path, the following information is written: ID, lat, lon, g, h, f and name. ***/
-void path_to_file(node* nodes, unsigned long* path, unsigned long length, AStarStatus* info, char* name, unsigned short dist_formula) {
+void path_to_file(node* nodes, unsigned long* path, unsigned long length, AStarStatus* info, char* name) {
 // modify name to the following format (map)_(id of source)_(id of destination).csv. Map is either spain or cataluna
     char ending[257] = "_";
     char buffer[11];
-    sprintf(buffer, "%lu", (nodes+path[0])->id);
+    sprintf(buffer, "%lu", nodes[path[0]].id);
     strcat(ending, buffer);
     strcat(ending, "_");
-    sprintf(buffer, "%lu", (nodes+path[length-1])->id);
-    strcat(ending, buffer);
-    if (dist_formula == 1) strcat(ending, "_haversine");
-    else if (dist_formula == 2) strcat(ending, "_cosines");
-    else if (dist_formula == 3) strcat(ending, "_equiraprox");
-    else ExitError("invalid choice of distance function", 5);      
+    sprintf(buffer, "%lu", nodes[path[length-1]].id);
+    strcat(ending, buffer);     
     strcat(ending, ".csv");
     strcpy(strrchr(name, '.'), ending);
     FILE *fout;
     if ((fout = fopen (name, "w+")) == NULL) ExitError("the output data file cannot be created", 13);   
-    fprintf(fout, "step;id;lat;lon;g;h;f;name\n");
+    fprintf(fout, "step;id;lat;lon;g;h;name\n");
     unsigned long i;
     for (i = 0; i < length; i++) {
-        fprintf(fout, "%lu;%lu;%.7f;%.7f;%.7f;%.7f;%.7f\n", i, (nodes+path[i])->id, (nodes+path[i])->lat, (nodes+path[i])->lon, (info+path[i])->g, (info+path[i])->h, (info+path[i])->g + (info+path[i])->h);
+        fprintf(fout, "%lu;%lu;%.7f;%.7f;%.7f;%.7f;%s\n", i, nodes[path[i]].id, nodes[path[i]].lat, nodes[path[i]].lon, info[path[i]].g, info[path[i]].h, nodes[path[i]].name);
     }
     
     fclose(fout);
 }
-
-/*** Auxiliary function to keep track of the OPEN list. Used for debugging. Recommended to use only when testing the algorithm to compute the route between two close-by nodes. ***/
-void print_OPEN (open_node* OPEN) {
-    open_node* TEMP = OPEN;
-    printf("\nOPEN list:\nNode index\tf\n");
-    while (TEMP != NULL) {
-        printf("%lu\t\t%f\n", (TEMP)->index, TEMP->f);
-        TEMP = TEMP->next;
-    }
-    printf("\n");
-}
-
-
-
-
-
-
-
-
-
-
-

@@ -2,3 +2,7 @@
 *.bin
 write
 Astar
+*.R
+*.Rdata
+*.Rhistory
+*.html
