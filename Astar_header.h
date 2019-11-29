@@ -4,6 +4,7 @@
 #include <string.h>
 #include <stdbool.h>
 #include <math.h>
+#include <time.h>
 
 /*** MACROS ***/
 #define R 6371          // Earth radius in km
@@ -148,6 +149,20 @@ double haversine (node u, node v) {
     return d;
 }
 
+double evaluation_function (int mode, double param, AStarStatus* info, node* nodes, unsigned long cur_index, unsigned long src_index, unsigned long dest_index) {
+// default evaluation
+    if (mode == 1) return info[cur_index].g + info[cur_index].h;
+// weighted evaluation
+    else if (mode == 2) return (1-param)*info[cur_index].g + param*info[cur_index].h;
+// dynamic weighting
+    else if (mode == 3) {
+        double extra = 1 - haversine(nodes[cur_index], nodes[src_index]) / (haversine(nodes[cur_index], nodes[dest_index]) + haversine(nodes[cur_index], nodes[src_index]));
+        return info[cur_index].g + info[cur_index].h + param*extra*info[cur_index].h;
+    }
+    ExitError("Invalid choice of evaluation function.", 20);
+    return 0.f;
+}
+
 /*** Auxiliary function to keep track of the OPEN list. Used for debugging. Recommended to use only when testing the algorithm to compute the route between two close-by nodes. ***/
 void print_OPEN (open_node* OPEN) {
     open_node* TEMP = OPEN;
@@ -160,13 +175,13 @@ void print_OPEN (open_node* OPEN) {
 }
 
 /*** insert_to_OPEN() takes in a node with a given index and inserts it in the OPEN list. It dynamically allocates memory for the node in the OPEN list and inserts it by preserving the ordering of the f value. It computes such f value by reading g and h values from the progress vector. Tie break rule: a new node that is inserted and has the same f as a node already in the OPEN list. Then, the incoming node is inserted behind the node already in the OPEN list. ***/
-void insert_to_OPEN (unsigned long index, AStarStatus* progress, open_node* OPEN) {
+void insert_to_OPEN (unsigned long index, AStarStatus* progress, open_node* OPEN, node* nodes, int mode, double param, unsigned long src_index, unsigned long dest_index) {
     (progress + index)->whq = 1;
     open_node* TEMP = OPEN;                                                                 // copy of the OPEN list
     open_node* new_node = NULL;                                                             // new node in the OPEN list
     if ((new_node = (open_node*) malloc(sizeof(open_node))) == NULL) ExitError("when allocating memory for a new node in the OPEN list", 13);
     new_node->index = index;                                                                // index of new_node
-    new_node->f = progress[index].g + progress[index].h;                                    // f function of new node
+    new_node->f = evaluation_function (mode, param, progress, nodes, index, src_index, dest_index); // f function of new node
     new_node->next = NULL;                                                                  // for the moment new node is not allocated in the OPEN list
     while ( (TEMP->next != NULL) && ((TEMP->next)->f <= new_node->f ) ) TEMP = TEMP->next;  // find position in OPEN (TEMP) list to insert new_node
     if (TEMP->next == NULL) TEMP->next = new_node;                                          // if new_node has to be allocated at the end of OPEN
@@ -205,7 +220,7 @@ bool is_path_correct (unsigned long* path, node* nodes) {
 }
 
 /*** path_to_file() creates an output file with the sequence of nodes that make up the path. For each node in the path, the following information is written: ID, lat, lon, g, h, f and name. ***/
-void path_to_file(node* nodes, unsigned long* path, unsigned long length, AStarStatus* info, char* name) {
+void path_to_file(node* nodes, unsigned long* path, unsigned long length, AStarStatus* info, char* name, int evaluation) {
 // modify name to the following format (map)_(id of source)_(id of destination).csv. Map is either spain or cataluna
     char ending[257] = "_";
     char buffer[11];
@@ -213,7 +228,11 @@ void path_to_file(node* nodes, unsigned long* path, unsigned long length, AStarS
     strcat(ending, buffer);
     strcat(ending, "_");
     sprintf(buffer, "%lu", nodes[path[length-1]].id);
-    strcat(ending, buffer);     
+    strcat(ending, buffer);
+    if (evaluation == 1) strcat(ending, "_default");
+    else if (evaluation == 2) strcat(ending, "_weighted");
+    else if (evaluation == 3) strcat(ending, "_dynamic");
+    else ExitError("Invalid choice of evaluation function.", 20);     
     strcat(ending, ".csv");
     strcpy(strrchr(name, '.'), ending);
     FILE *fout;

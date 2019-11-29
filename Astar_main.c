@@ -28,6 +28,7 @@ int main (int argc, char *argv[]) {
     char* allnames = NULL;
     if((allnames = (char*) malloc((totnamelen)*sizeof(char))) == NULL) ExitError("when allocating memory for allnames vector", 5);
     char* allnames_aux = allnames; 
+    
 // Reading all data from file
     if( fread(nodes, sizeof(node), nnodes, fin) != nnodes )
         ExitError("when reading nodes from the binary data file", 17);
@@ -65,7 +66,7 @@ int main (int argc, char *argv[]) {
         printf("\t\tGiralda, Sevilla : 195977239\n\n");
     }
 // suggestions if we are working with map of Catalonia
-    if (*argv[1] == 'c') {   
+    else if (*argv[1] == 'c') {   
         printf("\tSuggestions:\n");
         printf("\t\tSomewhere in Girona : 771979683\n");
         printf("\t\tSomewhere in Lleida : 429854583\n\n");
@@ -85,8 +86,34 @@ int main (int argc, char *argv[]) {
         if (scanf("%lu", &dest) != 1) ExitError("when reading the ID of destination node", 18);
     }
     printf("\n");
+// choose evaluation function mode
+    printf("Choose evaluation function:\n");
+    printf("\t1 - Default:              f = g + h\n");
+    printf("\t2 - Weighted:             f = (1-w)·g + w·h\n");
+    printf("\t3 - Dynamic weighting:    f = g + h + e·(1-d/N)·h\n");
+    int evaluation = 0;
+    if (scanf("%d", &evaluation) != 1) ExitError("when reading the evaluation function", 18);
+    while ( evaluation < 1 || evaluation > 3) {
+        printf("Invalid choice of evaluation function. Please enter your choice of evaluation again: ");
+        if (scanf("%d", &evaluation) != 1) ExitError("when reading the evaluation function", 18);
+    }
+    double param = 0;
+    if (evaluation == 1) printf("You have chosen default evaluation.\n");
+    else if (evaluation == 2) {
+        printf("You have chosen weighted evaluation. Please input parameter w: ");
+        if (scanf("%lf", &param) != 1) ExitError("when reading the parameter for weighted evaluation", 18);
+        while ( param < 0 || param > 1) {
+            printf("Invalid choice of w. Please enter w again: ");
+            if (scanf("%lf", &param) != 1) ExitError("when reading the parameter for weighted evaluation", 18);
+        }
+    }
+    else if (evaluation == 3) {
+        printf("You have chosen dynamic weighting evaluation. Please input parameter e (epsilon): ");
+        if (scanf("%lf", &param) != 1) ExitError("when reading the parameter for weighted evaluation", 18);
+    }
+    printf("\n");
     
-    AStar(nodes, source, dest, nnodes, argv[1]);
+    AStar(nodes, source, dest, nnodes, argv[1], evaluation, param);
     
 /*** Free all allocated memory ***/
     for (i = 0; i < nnodes; i++) free(nodes[i].name);
