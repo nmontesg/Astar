@@ -27,11 +27,6 @@ void AStar (node* nodes, unsigned long source, unsigned long dest, unsigned long
     OPEN->index = source_index;
     OPEN->f = evaluation_function (evaluation, param, progress, nodes, source_index, source_index, dest_index);
     OPEN->next = NULL;
-    
-/* optional: file to write f as a function of expanded node */
-    FILE *fout;
-    if ((fout = fopen ("expansion.csv", "w+")) == NULL) ExitError("the output data file cannot be created", 1);  
-    fprintf(fout, "nodes_expanded_num|f\n");
         
     unsigned long cur_index;                    // index of current node (that with minimal f) extracted from OPEN list
     unsigned short succ_count;                  // counter over the success of the node being expanded
@@ -46,7 +41,6 @@ void AStar (node* nodes, unsigned long source, unsigned long dest, unsigned long
     while (OPEN != NULL) {
         cur_index = OPEN->index;
         expanded_nodes_counter += 1;
-        /*optional*/fprintf(fout, "%lu|%.7d\n", expanded_nodes_counter, OPEN->f);
         if (cur_index == dest_index) {                                              // we have reached destination -> break
             printf("A* algorithm has reached the destination node (ID %lu).\n\n", nodes[cur_index].id);
             break;
@@ -75,7 +69,6 @@ void AStar (node* nodes, unsigned long source, unsigned long dest, unsigned long
         AUX = OPEN->next;   free(OPEN);     OPEN = AUX;                                                                                                                      
     }
     end = clock();                                                                      // get time after ending the A* loop
-    /*optional*/fclose(fout);
     if (OPEN == NULL) ExitError("OPEN list is empty before reaching destination", 23);  // destination has not been reached
 
     while (OPEN != NULL) {                                                              // free the remainder of the OPEN list
