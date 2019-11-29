@@ -9,7 +9,7 @@ void AStar (node* nodes, unsigned long source, unsigned long dest, unsigned long
     
 // progress stores g, h, index in nodes vector and queue location for all nodes
     AStarStatus* progress = NULL;
-    if ((progress = (AStarStatus*) malloc(nnodes*sizeof(AStarStatus))) == NULL) ExitError("when allocating memory for the progress vector", 13);
+    if ((progress = (AStarStatus*) malloc(nnodes*sizeof(AStarStatus))) == NULL) ExitError("when allocating memory for the progress vector", 19);
     unsigned long i;
     for (i = 0; i < nnodes; i++) {
         progress[i].whq = 0;                                                                  // all nodes start neither in OPEN nor CLOSED list
@@ -21,12 +21,17 @@ void AStar (node* nodes, unsigned long source, unsigned long dest, unsigned long
 
 // OPEN list and auxiliary
     struct open_node* OPEN = NULL;                                                         
-    if ((OPEN = (open_node*) malloc(sizeof(open_node))) == NULL) ExitError("when allocating memory for the OPEN list", 13);
+    if ((OPEN = (open_node*) malloc(sizeof(open_node))) == NULL) ExitError("when allocating memory for the OPEN list", 20);
     struct open_node* AUX = NULL;
 // to start, only element in the OPEN list is the source node
     OPEN->index = source_index;
     OPEN->f = evaluation_function (evaluation, param, progress, nodes, source_index, source_index, dest_index);
     OPEN->next = NULL;
+    
+/* optional: file to write f as a function of expanded node */
+    FILE *fout;
+    if ((fout = fopen ("expansion.csv", "w+")) == NULL) ExitError("the output data file cannot be created", 1);  
+    fprintf(fout, "nodes_expanded_num|f\n");
         
     unsigned long cur_index;                    // index of current node (that with minimal f) extracted from OPEN list
     unsigned short succ_count;                  // counter over the success of the node being expanded
@@ -41,6 +46,7 @@ void AStar (node* nodes, unsigned long source, unsigned long dest, unsigned long
     while (OPEN != NULL) {
         cur_index = OPEN->index;
         expanded_nodes_counter += 1;
+        /*optional*/fprintf(fout, "%lu|%.7d\n", expanded_nodes_counter, OPEN->f);
         if (cur_index == dest_index) {                                              // we have reached destination -> break
             printf("A* algorithm has reached the destination node (ID %lu).\n\n", nodes[cur_index].id);
             break;
@@ -69,7 +75,8 @@ void AStar (node* nodes, unsigned long source, unsigned long dest, unsigned long
         AUX = OPEN->next;   free(OPEN);     OPEN = AUX;                                                                                                                      
     }
     end = clock();                                                                      // get time after ending the A* loop
-    if (OPEN == NULL) ExitError("OPEN list is empty before reaching destination", 13);  // destination has not been reached
+    /*optional*/fclose(fout);
+    if (OPEN == NULL) ExitError("OPEN list is empty before reaching destination", 23);  // destination has not been reached
 
     while (OPEN != NULL) {                                                              // free the remainder of the OPEN list
         AUX = OPEN->next;   free(OPEN);     OPEN = AUX;
@@ -92,7 +99,7 @@ void AStar (node* nodes, unsigned long source, unsigned long dest, unsigned long
     
 // store a vector with the indices of the nodes that make up the path
     unsigned long* path = NULL;
-    if ((path = (unsigned long*) malloc(path_len*sizeof(unsigned long))) == NULL) ExitError("when allocating memory for the path vector", 13);
+    if ((path = (unsigned long*) malloc(path_len*sizeof(unsigned long))) == NULL) ExitError("when allocating memory for the path vector", 24);
     path += path_len - 1;
     cur_index = dest_index;
     while (cur_index != source_index) { 
@@ -104,10 +111,10 @@ void AStar (node* nodes, unsigned long source, unsigned long dest, unsigned long
     
 // check that the path makes sense: if node v follows node u, then u is in the adjacency list of v.
     bool check = is_path_correct(path, nodes);
-    if (!check) ExitError("the computed path is not correct", 13);
+    if (!check) ExitError("the computed path is not correct", 25);
     
 // write results to a csv file
-    path_to_file(nodes, path, path_len, progress, name, evaluation);
+    path_to_file(nodes, path, path_len, progress, name, evaluation, param);
     
     free(path);
     free(progress);

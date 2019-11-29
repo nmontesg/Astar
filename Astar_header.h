@@ -52,7 +52,7 @@ void process_node(node* nodes, char* line, unsigned long i) {
     nodes[i].id = strtoul(field, &ptr, 10);
     field = strsep(&line, "|");                                              // get third field (name)
     nodes[i].namelen = strlen(field);
-    if ((nodes[i].name = (char*) malloc(nodes[i].namelen + 1)) == NULL) ExitError("when allocating memory for a node name", 5);
+    if ((nodes[i].name = (char*) malloc(nodes[i].namelen + 1)) == NULL) ExitError("when allocating memory for a node name", 4);
     strcpy( nodes[i].name, field );
     unsigned short count;
     for (count = 4; count < 11; count++) field = strsep(&line, "|");         // get 10th field (lat)
@@ -159,7 +159,7 @@ double evaluation_function (int mode, double param, AStarStatus* info, node* nod
         double extra = 1 - haversine(nodes[cur_index], nodes[src_index]) / (haversine(nodes[cur_index], nodes[dest_index]) + haversine(nodes[cur_index], nodes[src_index]));
         return info[cur_index].g + info[cur_index].h + param*extra*info[cur_index].h;
     }
-    ExitError("Invalid choice of evaluation function.", 20);
+    ExitError("Invalid choice of evaluation function.", 22);
     return 0.f;
 }
 
@@ -179,7 +179,7 @@ void insert_to_OPEN (unsigned long index, AStarStatus* progress, open_node* OPEN
     (progress + index)->whq = 1;
     open_node* TEMP = OPEN;                                                                 // copy of the OPEN list
     open_node* new_node = NULL;                                                             // new node in the OPEN list
-    if ((new_node = (open_node*) malloc(sizeof(open_node))) == NULL) ExitError("when allocating memory for a new node in the OPEN list", 13);
+    if ((new_node = (open_node*) malloc(sizeof(open_node))) == NULL) ExitError("when allocating memory for a new node in the OPEN list", 21);
     new_node->index = index;                                                                // index of new_node
     new_node->f = evaluation_function (mode, param, progress, nodes, index, src_index, dest_index); // f function of new node
     new_node->next = NULL;                                                                  // for the moment new node is not allocated in the OPEN list
@@ -220,7 +220,7 @@ bool is_path_correct (unsigned long* path, node* nodes) {
 }
 
 /*** path_to_file() creates an output file with the sequence of nodes that make up the path. For each node in the path, the following information is written: ID, lat, lon, g, h, f and name. ***/
-void path_to_file(node* nodes, unsigned long* path, unsigned long length, AStarStatus* info, char* name, int evaluation) {
+void path_to_file(node* nodes, unsigned long* path, unsigned long length, AStarStatus* info, char* name, int evaluation, double param) {
 // modify name to the following format (map)_(id of source)_(id of destination).csv. Map is either spain or cataluna
     char ending[257] = "_";
     char buffer[11];
@@ -230,13 +230,21 @@ void path_to_file(node* nodes, unsigned long* path, unsigned long length, AStarS
     sprintf(buffer, "%lu", nodes[path[length-1]].id);
     strcat(ending, buffer);
     if (evaluation == 1) strcat(ending, "_default");
-    else if (evaluation == 2) strcat(ending, "_weighted");
-    else if (evaluation == 3) strcat(ending, "_dynamic");
-    else ExitError("Invalid choice of evaluation function.", 20);     
+    else if (evaluation == 2) {
+        strcat(ending, "_weighted_");
+        sprintf(buffer, "%.2f", param);
+        strcat(ending, buffer);
+    }
+    else if (evaluation == 3) {
+        strcat(ending, "_dynamic");
+        sprintf(buffer, "%.2f", param);
+        strcat(ending, buffer);
+    }
+    else ExitError("Invalid choice of evaluation function.", 26);     
     strcat(ending, ".csv");
     strcpy(strrchr(name, '.'), ending);
     FILE *fout;
-    if ((fout = fopen (name, "w+")) == NULL) ExitError("the output data file cannot be created", 13);   
+    if ((fout = fopen (name, "w+")) == NULL) ExitError("the output data file cannot be created", 27);   
     fprintf(fout, "step|id|lat|lon|g|h|name\n");
     unsigned long i;
     for (i = 0; i < length; i++) {

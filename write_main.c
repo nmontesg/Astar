@@ -4,7 +4,7 @@ int main (int argc, char *argv[]) {
     
 // Open csv file and select what map we are working with
     FILE *fmap;
-    if ((fmap = fopen(argv[1], "r")) == NULL) ExitError("when opening the csv file", 2);
+    if ((fmap = fopen(argv[1], "r")) == NULL) ExitError("when opening the csv file", 1);
     
 // Variables related to getline()
     char* line_buf = NULL;      // line that is being read from file
@@ -22,12 +22,12 @@ int main (int argc, char *argv[]) {
     
 // Vector of nodes
     node *nodes;
-    if((nodes = (node *) malloc(nnodes*sizeof(node))) == NULL) ExitError("when allocating memory for the nodes vector", 5);
+    if((nodes = (node *) malloc(nnodes*sizeof(node))) == NULL) ExitError("when allocating memory for the nodes vector", 2);
     unsigned long i = 0;  // keep track of the position in nodes vector of the node being processed
 
 // Vector of number of successors of each node. calloc() initializes allocated memory to 0
     unsigned short* nsuccdim = NULL;
-    if ((nsuccdim = (unsigned short*) calloc(nnodes, sizeof(unsigned short))) == NULL) ExitError("when allocating memory for nsuccdim", 5);
+    if ((nsuccdim = (unsigned short*) calloc(nnodes, sizeof(unsigned short))) == NULL) ExitError("when allocating memory for nsuccdim", 3);
         
 /*** FIRST READ OF .csv FILE: Lines that correspond to nodes get info on node id, name, lat and lon. Lines that correspond to ways are used to compute the elements of nsuccdim ***/
     fseek(fmap, 0, SEEK_SET);                                // rewind to the begining of file for second round of reading
@@ -54,7 +54,7 @@ int main (int argc, char *argv[]) {
     
 // Allocate memory for successors index counter. Use calloc() to initialize all counters to 0.
     unsigned short* succ_counter = NULL;
-    if((succ_counter = (unsigned short*) calloc(nnodes, sizeof(unsigned short))) == NULL) ExitError("when allocating memory for the nodes successor counters", 5);
+    if((succ_counter = (unsigned short*) calloc(nnodes, sizeof(unsigned short))) == NULL) ExitError("when allocating memory for the nodes successor counters", 6);
     
 /*** SECOND READ OF .csv FILE: Construct adjacency list ***/
     fseek(fmap, 0, SEEK_SET);                                      // rewind to the begining of file for second round of reading
@@ -85,35 +85,35 @@ int main (int argc, char *argv[]) {
     
 // Allocate memory for a string consisting that will contain all names concatenated
     char* allnames;
-    if((allnames = (char*) malloc((totnamelen)*sizeof(char))) == NULL) ExitError("when allocating memory for allnames vector", 5);
+    if((allnames = (char*) malloc((totnamelen)*sizeof(char))) == NULL) ExitError("when allocating memory for allnames vector", 7);
     
 // Setting the name of the binary file
     strcpy(name, argv[1]); strcpy(strrchr(name, '.'), ".bin");
     if ((fin = fopen (name, "wb")) == NULL)
-        ExitError("the output binary data file cannot be opened", 31);
+        ExitError("the output binary data file cannot be opened", 8);
     
 // Global data --- header
     if( fwrite(&nnodes, sizeof(unsigned long), 1, fin) +
         fwrite(&ntotnsucc, sizeof(unsigned long), 1, fin) +
         fwrite(&totnamelen, sizeof(unsigned long), 1, fin) != 3 )
-            ExitError("when initializing the output binary data file", 32);
+            ExitError("when initializing the output binary data file", 9);
 
 // Writing all nodes
     if( fwrite(nodes, sizeof(node), nnodes, fin) != nnodes )
-        ExitError("when writing nodes to the output binary data file", 32);
+        ExitError("when writing nodes to the output binary data file", 10);
        
 // Writing sucessors in blocks and making the allnames string
     for(i = 0; i < nnodes; i++){
         if(nodes[i].nsucc) {
             if ( fwrite(nodes[i].successors, sizeof(unsigned long), nodes[i].nsucc, fin) != nodes[i].nsucc )
-                ExitError("when writing edges to the output binary data file", 32);
+                ExitError("when writing edges to the output binary data file", 11);
         }
         strcat(allnames, nodes[i].name);
     }
     
 // Writing all names
     if ( fwrite(allnames, sizeof(char), totnamelen, fin) != totnamelen )
-            ExitError("when writing allnames to the output binary data file", 32);
+            ExitError("when writing allnames to the output binary data file", 12);
         
     fclose(fin);            // close .bin file
                   
