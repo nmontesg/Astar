@@ -77,7 +77,7 @@ void AStar (node* nodes, unsigned long source, unsigned long dest, unsigned long
     cpu_time_used = ((double) (end - start)) / CLOCKS_PER_SEC;                          // compute time to execute A*
     printf("The optimal distance has been found to be %.5f km.\n\n", progress[dest_index].g);
     printf("A* has expanded %lu nodes.\n\n", expanded_nodes_counter);
-    printf("The A* loop has taken %.2f seconds to complete.\n\n", cpu_time_used);
+    printf("The A* loop has taken %.6f seconds to complete.\n\n", cpu_time_used);
     
        
 // count the number of nodes in the path

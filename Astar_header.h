@@ -237,7 +237,7 @@ void path_to_file(node* nodes, unsigned long* path, unsigned long length, AStarS
     }
     else if (evaluation == 3) {
         strcat(ending, "_dynamic");
-        sprintf(buffer, "%.2f", param);
+        sprintf(buffer, "%.4f", param);
         strcat(ending, buffer);
     }
     else ExitError("Invalid choice of evaluation function.", 26);     
