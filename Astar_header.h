@@ -236,7 +236,7 @@ void path_to_file(node* nodes, unsigned long* path, unsigned long length, AStarS
         strcat(ending, buffer);
     }
     else if (evaluation == 3) {
-        strcat(ending, "_dynamic");
+        strcat(ending, "_dynamic_");
         sprintf(buffer, "%.4f", param);
         strcat(ending, buffer);
     }
