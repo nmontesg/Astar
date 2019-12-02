@@ -1,9 +1,10 @@
-*.csv
+spain.csv
+cataluna.csv
+expansion.csv
 *.bin
 write
 Astar
 *.R
 *.Rdata
 *.Rhistory
-*.html
-summary*
+*.xlsx
