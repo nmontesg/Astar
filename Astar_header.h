@@ -149,6 +149,7 @@ double haversine (node u, node v) {
     return d;
 }
 
+/*** evaluation_function() computes the f() function for a node given the type of evaluation we are working with, the current state of the g and h functions (argument info), the nodes vector (only necessary for dynamic weighting) and the indices of the node to be updated, as well as those of the source and destination. ***/
 double evaluation_function (int mode, double param, AStarStatus* info, node* nodes, unsigned long cur_index, unsigned long src_index, unsigned long dest_index) {
 // default evaluation
     if (mode == 1) return info[cur_index].g + info[cur_index].h;
@@ -221,7 +222,7 @@ bool is_path_correct (unsigned long* path, node* nodes) {
 
 /*** path_to_file() creates an output file with the sequence of nodes that make up the path. For each node in the path, the following information is written: ID, lat, lon, g, h, f and name. ***/
 void path_to_file(node* nodes, unsigned long* path, unsigned long length, AStarStatus* info, char* name, int evaluation, double param) {
-// modify name to the following format (map)_(id of source)_(id of destination).csv. Map is either spain or cataluna
+// modify name to the following format (map)_(id of source)_(id of destination)_(evaluation mode)_(parameters if any).csv. Map is either spain or cataluna
     char ending[257] = "_";
     char buffer[11];
     sprintf(buffer, "%lu", nodes[path[0]].id);
