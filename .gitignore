@@ -1,6 +1,4 @@
-spain.csv
-cataluna.csv
-expansion.csv
+*.csv
 *.bin
 write
 Astar
@@ -9,3 +7,4 @@ Astar
 *.Rhistory
 *.xlsx
 Maps
+Paths
