@@ -91,17 +91,18 @@ void update_nsuccs(unsigned short* nsuccdim, char* line, node* nodes, unsigned l
     char* node_n = NULL;                             // string read from line of first node
     char* node_m = NULL;                             // string read from line of second node
     unsigned long id_n, id_m;                        // id's of first and second node
-    signed long n, m;                                // position of first and second node in nodes vector
-    node_n = strsep(&line, "|");                     // always at least one node in way
-    while ((node_m = strsep(&line, "|")) != NULL) {  // read current field
+    signed long n = -1, m;                           // position of first and second node in nodes vector
+    while ((n == -1) && ((node_n = strsep(&line, "|")) != NULL)) { // start to read line from a node that is in the nodes vector
         id_n = strtoul(node_n, &ptr, 10);
-        id_m = strtoul(node_m, &ptr, 10);
         n = binary_search(nodes, id_n, 0, nnodes-1);
+    }
+    while ((node_m = strsep(&line, "|")) != NULL) {  // read next node
+        id_m = strtoul(node_m, &ptr, 10);
         m = binary_search(nodes, id_m, 0, nnodes-1);
-        node_n = node_m;                             // advance to next pair of consecutive nodes
-        if ( (n == -1) || (m == -1) ) continue;      // if any of the nodes is not in nodes vector -> skip
-        else if (oneway == true) nsuccdim[n] += 1;
+        if (m == -1) continue;                       // if adjacent node not in nodes vector -> get a new one
+        if (oneway == true) nsuccdim[n] += 1;
         else { nsuccdim[n] += 1; nsuccdim[m] += 1; }
+        n = m;                                       // move on to next pair of adjacent nodes
     }
 }
 
@@ -119,16 +120,16 @@ void update_successors(char* line, node* nodes, unsigned long nnodes, unsigned s
     char* node_n = NULL;                             // string read from line of first node
     char* node_m = NULL;                             // string read from line of second node
     unsigned long id_n, id_m;                        // id's of first and second node
-    signed long n, m;                                // position of first and second node in nodes vector
-    unsigned short free_n, free_m;                   // position of first free successor nodes in the adjacency list of each node
-    node_n = strsep(&line, "|");                     // always at least one node in way
-    while ((node_m = strsep(&line, "|")) != NULL) {  // read another node
+    signed long n = -1, m;                           // position of first and second node in nodes vector
+    while ((n == -1) && ((node_n = strsep(&line, "|")) != NULL)) { // start to read line from a node that is in the nodes vector
         id_n = strtoul(node_n, &ptr, 10);
-        id_m = strtoul(node_m, &ptr, 10);
         n = binary_search(nodes, id_n, 0, nnodes-1);
+    }
+    unsigned short free_n, free_m;                   // position of first free successor nodes in the adjacency list of each node
+    while ((node_m = strsep(&line, "|")) != NULL) {  // read another node
+        id_m = strtoul(node_m, &ptr, 10);
         m = binary_search(nodes, id_m, 0, nnodes-1);
-        node_n = node_m;                              // first node is now second node to read next pair 
-        if ( (n == -1) || (m == -1) ) continue;       // if any of the nodes is not in nodes vector -> skip
+        if (m == -1) continue;                        // if adjacent node not in nodes vector -> get a new one
         free_n = counters[n];                         // find free spot for successor of node_n
         free_m = counters[m];                         // find free spot for successor of node_m 
         if (oneway == true) { (nodes[n].successors)[free_n] = m;  counters[n] += 1; } // write successor  m(n) in adjacency list of n(m)
@@ -136,6 +137,7 @@ void update_successors(char* line, node* nodes, unsigned long nnodes, unsigned s
             (nodes[n].successors)[free_n] = m;    counters[n] += 1;
             (nodes[m].successors)[free_m] = n;    counters[m] += 1;
         }
+        n = m;                                        // move on to next pair of adjacent nodes
     }
 }
 

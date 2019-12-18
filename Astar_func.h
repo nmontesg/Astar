@@ -27,7 +27,6 @@ void AStar (node* nodes, unsigned long source, unsigned long dest, unsigned long
     OPEN->index = source_index;
     OPEN->f = evaluation_function (evaluation, param, progress, nodes, source_index, source_index, dest_index);
     OPEN->next = NULL;
-        
     unsigned long cur_index;                    // index of current node (that with minimal f) extracted from OPEN list
     unsigned short succ_count;                  // counter over the success of the node being expanded
     unsigned long succ_index;                   // index in nodes vector of the successor being processed
@@ -61,7 +60,6 @@ void AStar (node* nodes, unsigned long source, unsigned long dest, unsigned long
             
             progress[succ_index].g = successor_current_cost;                        // set successor cost as that coming from the current node
             progress[succ_index].parent = cur_index;                                // set successor parent as current node
-            //insert_to_OPEN(succ_index, progress, OPEN);                             // insert successor from close to open list, maintaining ordering of f
             insert_to_OPEN (succ_index, progress, OPEN, nodes, evaluation, param, source_index, dest_index);
         }
         progress[cur_index].whq = 2;                                                // move current node from OPEN to CLOSE list
@@ -78,7 +76,6 @@ void AStar (node* nodes, unsigned long source, unsigned long dest, unsigned long
     printf("The optimal distance has been found to be %.5f km.\n\n", progress[dest_index].g);
     printf("A* has expanded %lu nodes.\n\n", expanded_nodes_counter);
     printf("The A* loop has taken %.6f seconds to complete.\n\n", cpu_time_used);
-    
        
 // count the number of nodes in the path
     cur_index = dest_index;
