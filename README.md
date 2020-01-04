@@ -1,2 +1,2 @@
 # A*
-A* algorithm for routing.
+A* algorithm for routing. The code is prepared to find the shortest path between two given nodes in the map of Spain. The map data is pre-processed from a .csv file into a binary file (see ```write_main.c```). The actual algorithm, implemented as a function, is contained in the file ```Astar_func.h```. The file to be compiled and executed to run A* is ```Astar_main.c```. All auxiliary functions are defined in ```Astar_header.h```. For more information on the code and the results, see the pdf report.
